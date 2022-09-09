@@ -27,15 +27,15 @@ function Categories() {
 class Header extends React.Component {
     render(){
     return <div className='header'>
-            <div className='navigation'>
-              <div className='all-categories'>
-                <Categories />
+              <div className='navigation'>
+                <div className='all-categories'>
+                  <Categories />
+                </div>
               </div>
-            </div>
-            <div className='brand-icon'>
-              <img src={logo} id='logo'  alt='logo'/>
-            </div>
-            <Actions />
+              <div className='brand-icon'>
+                <img src={logo} id='logo'  alt='logo'/>
+              </div>
+              <Actions />
         </div>
     }
 }
