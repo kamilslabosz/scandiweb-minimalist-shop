@@ -1,5 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import logo from '../../images/svg/logo.svg'
+import Actions from './actions';
 
 const GET_CATEGORIES = gql`
   query GetCategories {
@@ -16,7 +18,9 @@ function Categories() {
   if (error) return <p>Error :(</p>;
 
   return data.categories.map(({ name }) => (
-      <h1 className='category'>{name}</h1>
+      <div className='category'>
+        <h1 className='cat-label'>{name}</h1>
+      </div>
   ));
 }
 
@@ -24,8 +28,14 @@ class Header extends React.Component {
     render(){
     return <div className='header'>
             <div className='navigation'>
+              <div className='all-categories'>
                 <Categories />
+              </div>
             </div>
+            <div className='brand-icon'>
+              <img src={logo} id='logo'  alt='logo'/>
+            </div>
+            <Actions />
         </div>
     }
 }
