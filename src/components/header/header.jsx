@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import logo from '../../images/svg/logo.svg'
 import Actions from './actions';
@@ -24,7 +24,7 @@ function Categories() {
   ));
 }
 
-class Header extends React.Component {
+class Header extends PureComponent {
     render(){
     return <div className='header'>
               <div className='navigation'>

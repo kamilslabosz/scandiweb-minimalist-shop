@@ -1,8 +1,8 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import cart from '../../images/svg/cart.svg'
 
 
-class Actions extends React.Component {
+class Actions extends PureComponent {
     render(){
     return <div className='actions'>
             <p className='action-item'>$ v</p>
