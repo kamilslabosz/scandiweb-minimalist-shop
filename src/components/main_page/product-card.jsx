@@ -1,5 +1,4 @@
 import { PureComponent } from 'react';
-import cart from "../../images/svg/cart.svg"
 import emptyCart from "../../images/svg/emptyCart.svg"
 
 

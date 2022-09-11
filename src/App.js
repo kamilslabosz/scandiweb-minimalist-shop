@@ -1,16 +1,21 @@
 import { PureComponent } from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
-import MainPage from './components/main_page/main-page';
+import Home from './pages/home';
+
 
 
 class App extends PureComponent {
   render() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <MainPage />
-    </div>)
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+      </Routes>
+    </BrowserRouter>
+    )
   };
 };
 
