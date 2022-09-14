@@ -30,7 +30,7 @@ render(){
             if (data === undefined) return null;
 
             return data.category.products.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard product={product} key={product.id}/>
             ))
           }}
         </Query>

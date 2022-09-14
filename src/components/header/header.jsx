@@ -23,7 +23,7 @@ class Header extends PureComponent {
                     if (data === undefined) return null;
 
                     return data.categories.map(({ name }) => (
-                      <div className='category'>
+                      <div className='category' key={name}>
                         <h1 className='cat-label'>{name}</h1>
                       </div>
                   ))

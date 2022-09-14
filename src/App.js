@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
 import Home from './pages/home';
-import Product from './pages/product';
+import ProductQuery from './pages/product-query';
 
 
 
@@ -14,7 +14,7 @@ class App extends PureComponent {
       <Header />
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/product/:id' element={<Product />} />
+        <Route path='/product/:id' element={<ProductQuery />} />
       </Routes>
     </BrowserRouter>
     )
