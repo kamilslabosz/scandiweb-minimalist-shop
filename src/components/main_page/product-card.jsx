@@ -1,25 +1,33 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import emptyCart from "../../images/svg/emptyCart.svg"
 import { withRouter } from '../../utils/hoc';
 class ProductCard extends PureComponent{
+    constructor(props) {
+        super(props);
+        this.descrRef = React.createRef(); 
+      }
 
     toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
     toHome = () => this.props.navigate('/home')
 
     render(){
+
+        const {name, gallery, inStock, prices, brand} = this.props.product
         return <div className='product-card'>
             <div className='img-box'
             onClick={this.toProductPage}
             >
             <img 
-            src={this.props.product.gallery[0]} 
-            alt={this.props.product.name}
-            className={this.props.product.inStock ? "product-img" : "product-img img-grayed"}/>
-            {this.props.product.inStock ? null : <h1 className='out-of-stock'>OUT OF STOCK</h1>}
+            src={gallery[0]} 
+            alt={name}
+            className={inStock ? "product-img" : "product-img img-grayed"}/>
+            {inStock ? null : <h1 className='out-of-stock'>OUT OF STOCK</h1>}
             </div>
             <div 
-            className={this.props.product.inStock ? 'cart-btn green-bg' : 'cart-btn grayed-bg'}
-            onClick={this.toHome}
+            className={inStock ? 'cart-btn green-bg' : 'cart-btn grayed-bg'}
+            onClick={inStock 
+                ? () => {this.props.quickAddToCart(this.props.product)}
+                : null}
             >
                 <img src={emptyCart}
                 alt='add-to-cart' 
@@ -28,13 +36,13 @@ class ProductCard extends PureComponent{
             </div>
             <h1 
             onClick={this.toProductPage}
-            className={this.props.product.inStock ? "product-name" : "product-name grayed"}>
-                {this.props.product.name}
+            className={inStock ? "product-name" : "product-name grayed"}>
+                {brand} {name}
             </h1>
             <p 
             onClick={this.toProductPage}
-            className={this.props.product.inStock ? "product-price" : "product-price grayed"}>
-                {this.props.product.prices[0].amount}
+            className={inStock ? "product-price" : "product-price grayed"}>
+                {prices[0].amount}
             </p>
             
         </div>

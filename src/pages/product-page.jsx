@@ -36,7 +36,10 @@ class ProductPage extends PureComponent {
         ))}
         <p className='product-price-tag'>Price:</p>
         <h1 className='product-page-price'>{prices[0].amount}</h1>
-        <button>ADD TO CART</button>
+        {inStock
+        ? <button>ADD TO CART</button>
+        : <button className='grayed-bg'>OUT OF STOCK</button>
+        }
         <div className='product-descriptcion' dangerouslySetInnerHTML={{__html: description}}></div>
     </div>
     </div>
