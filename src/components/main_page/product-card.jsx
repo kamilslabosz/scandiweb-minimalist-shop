@@ -4,11 +4,9 @@ import { withRouter } from '../../utils/hoc';
 class ProductCard extends PureComponent{
     constructor(props) {
         super(props);
-        this.descrRef = React.createRef(); 
       }
 
     toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
-    toHome = () => this.props.navigate('/home')
 
     render(){
 

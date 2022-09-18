@@ -7,6 +7,7 @@ import ProductPage from './product-page';
 const GET_PRODUCT = gql`
   query GetProduct($id: String!) {
     product(id: $id){
+      id
       name
       inStock
       gallery
@@ -15,6 +16,7 @@ const GET_PRODUCT = gql`
       attributes{
         name
         id
+        type
         items{
           displayValue
           value
@@ -39,7 +41,7 @@ class Product extends PureComponent {
       {({ data }) =>{
         if (data === undefined) return null;
         
-        return <ProductPage  data={data}/>
+        return <ProductPage  data={data} addToCart={this.props.addToCart}/>
       }}
     </Query>
     )

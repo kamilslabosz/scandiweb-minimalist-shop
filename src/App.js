@@ -16,32 +16,44 @@ class App extends PureComponent {
       itemsInCart: 0,
     }
     this.quickAddToCart = this.quickAddToCart.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.checkAndAdd = this.checkAndAdd.bind(this);
   }
   
-  quickAddToCart(product) {
-    const newItem = {...product}
-    newItem.attributes.forEach(attr => {
-      newItem.id = newItem.id+attr.name+"0"
-      newItem[attr.name] = 0
-    });
+  checkAndAdd(product) {
+    const exist = this.state.cart.find((item) => item.id === product.id)
 
-    const exist = this.state.cart.find((item) => item.id === newItem.id)
-    console.log(exist)
     if (exist) {
       const newCart = this.state.cart.map((x) => 
-      x.id === newItem.id ? {...exist, quantity: exist.quantity + 1} : x
+      x.id === product.id ? {...exist, quantity: exist.quantity + 1} : x
       );
       this.setState({
         cart: newCart,
         itemsInCart: this.state.itemsInCart + 1,
       })
     } else {
-    newItem["quantity"] = 1;
+    product["quantity"] = 1;
     this.setState({
-      cart: [...this.state.cart, newItem],
+      cart: [...this.state.cart, product],
       itemsInCart: this.state.itemsInCart + 1,
     })
     }
+ }
+
+  quickAddToCart(product) {
+    const newItem = {...product}
+    newItem.attributes.forEach(attr => {
+      newItem.id = newItem.id+attr.name+"0"
+      newItem[attr.name] = 0
+    });
+    this.checkAndAdd(newItem)
+  }
+
+  addToCart(product) {
+    product.attributes.forEach(attr => {
+      product.id = product.id+attr.name+product[attr.name]
+    })
+    this.checkAndAdd(product)
   }
 
   render() {
@@ -50,7 +62,7 @@ class App extends PureComponent {
       <Header />
       <Routes>
         <Route path='/' element={<Home quickAddToCart={this.quickAddToCart} />} />
-        <Route path='/product/:id' element={<ProductQuery />} />
+        <Route path='/product/:id' element={<ProductQuery addToCart={this.addToCart} />} />
       </Routes>
     </BrowserRouter>
     )

@@ -310,7 +310,45 @@ button {
 }
 
 .attr-color {
-  width: 32px;
+  display: block;
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 2px white inset;
+}
+
+.attr-color-white {
+  display: block;
+  width: 31px;
   height: 32px;
   margin-right: 8px;
+  margin-top: 2px;
+  box-sizing: border-box;
+  border: 1px solid black;
 }
+
+input[type=radio]{
+  display: none
+}
+
+input[type=radio]:checked + .attr-value {
+  background-color: black;
+  color: white;
+}
+
+input[type=radio]:checked + .attr-color {
+  border: 1px solid #5ECE7B;
+  width: 37px;
+  height: 37px;
+}
+
+input[type=radio]:checked + .attr-color-white {
+  border: 1px solid #5ECE7B;
+  box-shadow: 0 0 0 2px white inset;
+  margin-right: 3px;
+  margin-top: 0;
+  width: 37px;
+  height: 37px;
+}
+
