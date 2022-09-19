@@ -14,11 +14,11 @@ h1, p {
 
 .header {
   position: absolute;
-    width: 80%;
-    height: 80px;
-    margin: 0 10%;
-    justify-content: space-between;
-    display: flex;
+  width: 80%;
+  height: 80px;
+  margin: 0 10%;
+  justify-content: space-between;
+  display: flex;
 }
 
 .category {
@@ -59,6 +59,7 @@ h1, p {
   line-height: 160%;
   margin-top: 160px;
   width: 100%;
+  text-transform: uppercase;
 }
 
 .cat-main {
@@ -69,7 +70,7 @@ h1, p {
   justify-content: space-between;
 }
 
-.all-categories {
+nav {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -352,3 +353,11 @@ input[type=radio]:checked + .attr-color-white {
   height: 37px;
 }
 
+.chosen-cat-label {
+  font-weight: 600;
+  color: #5ECE7B;
+} 
+
+.chosen-cat-div {
+  border-bottom: 1px solid #5ECE7B;
+}

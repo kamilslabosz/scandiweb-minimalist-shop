@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import { PureComponent } from 'react';
-import { withRouter } from '../utils/hoc';
-import ProductPage from './product-page';
+import { withRouter } from '../../utils/hoc';
+import ProductPage from '../../pages/product-page';
 
 const GET_PRODUCT = gql`
   query GetProduct($id: String!) {

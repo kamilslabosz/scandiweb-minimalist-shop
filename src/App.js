@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
-import Home from './pages/home';
-import ProductQuery from './pages/product-query';
+import MainPage from './pages/main-page';
+import CategoryPage from './pages/category-page';
+import ProductQuery from './components/product-page/product-query';
 
 
 
@@ -12,12 +13,14 @@ class App extends PureComponent {
     super(props);
     this.state ={
       cart: [],
+      currCategory: 'all',
       currenncyIdx: 0,
       itemsInCart: 0,
     }
     this.quickAddToCart = this.quickAddToCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.checkAndAdd = this.checkAndAdd.bind(this);
+    this.changeCategory = this.changeCategory.bind(this);
   }
   
   checkAndAdd(product) {
@@ -56,13 +59,21 @@ class App extends PureComponent {
     this.checkAndAdd(product)
   }
 
+  changeCategory(newCategory) {
+    this.setState({
+      currCategory: newCategory
+    })
+  }
+
   render() {
   return (
     <BrowserRouter>
-      <Header />
+      <Header changeCategory={this.changeCategory} currCategory={this.state.currCategory}/>
       <Routes>
-        <Route path='/' element={<Home quickAddToCart={this.quickAddToCart} />} />
+        <Route path='/' element={<MainPage quickAddToCart={this.quickAddToCart}/>} />
         <Route path='/product/:id' element={<ProductQuery addToCart={this.addToCart} />} />
+        <Route path='/category/:name' element={<CategoryPage quickAddToCart={this.quickAddToCart} changeCategory={this.changeCategory}/>} />
+        <Route path='/cart' element={<ProductQuery />} />
       </Routes>
     </BrowserRouter>
     )

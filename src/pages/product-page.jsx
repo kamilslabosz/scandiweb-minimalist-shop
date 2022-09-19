@@ -10,6 +10,18 @@ class ProductPage extends PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.props.data.product.attributes.forEach(attr => {
+      this.setState(prevState => ({
+        newItem: {
+          ...prevState.newItem,
+          [attr.name]: '0',
+        }
+      }))
+    });
+   
+  }
+
   handleChange(e) {
     const { name, value } = e.target
     this.setState(prevState => ({
@@ -25,8 +37,7 @@ class ProductPage extends PureComponent {
       e.preventDefault()
       const toCart = {...this.state.newItem}
       this.props.addToCart(toCart)
-  }
-  
+  } 
 
   render() {
 
@@ -59,27 +70,29 @@ class ProductPage extends PureComponent {
             className='attr-name'
             >{attr.name}:</h1>
             { attr.type === "swatch"
-            ? attr.items.map((item, index) => (
-            <div>
-            <input type="radio" 
-              name={attr.name} 
-              value={index} 
-              id={attr.name + item.value}
-            ></input>
-            <label 
-            className={item.value === '#FFFFFF' 
-            ? 'attr-color-white'
-            : 'attr-color'} style={{background: item.value}} for={attr.name + item.value}></label>
-            </div>
+              ? attr.items.map((item, index) => (
+              <div>
+              <input type="radio" 
+                name={attr.name} 
+                value={index} 
+                id={attr.name + item.value}
+                checked={this.state.newItem[attr.name] == index}
+              ></input>
+              <label 
+              className={item.value === '#FFFFFF' 
+                ? 'attr-color-white'
+                : 'attr-color'} style={{background: item.value}} for={attr.name + item.value}></label>
+                </div>
             )) 
-            : attr.items.map((item, index) => (<div>
-            <input type="radio" 
-              name={attr.name} 
-              value={index} 
-              id={attr.name + item.value}
-            ></input>
-            <label className='attr-value' for={attr.name + item.value}>{item.value}</label>
-            </div>))
+              : attr.items.map((item, index) => (<div>
+              <input type="radio" 
+                name={attr.name} 
+                value={index} 
+                id={attr.name + item.value}
+                checked={this.state.newItem[attr.name] == index}
+              ></input>
+              <label className='attr-value' for={attr.name + item.value}>{item.value}</label>
+              </div>))
             }
             </div>
         ))}

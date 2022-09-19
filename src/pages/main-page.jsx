@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components'
-import ProductCard from './product-card';
+import ProductCard from '../components/main_page/product-card';
 
 const GET_PRODUCTS = gql`
-  query GetCategory {
+  query GetProducts {
     category{
       products{
         id
@@ -33,7 +33,7 @@ class MainPage extends PureComponent{
   
 render(){
     return <div className='cat-main'>
-        <h1 className='cat-name'>Category Name</h1>
+        <h1 className='cat-name'>all</h1>
         <Query
         query={GET_PRODUCTS}>
           {({ data }) => {
