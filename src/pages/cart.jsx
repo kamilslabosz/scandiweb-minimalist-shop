@@ -7,6 +7,19 @@ import arrowLeft from '../images/svg/arrowLeft.svg'
 import arrowRight from '../images/svg/arrowRight.svg'
 
 class CartPage extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+          tax: 0,
+          quantity: 0,
+          total: 0,
+
+        }
+        // this.handleChange = this.handleChange.bind(this)
+        // this.handleSubmit = this.handleSubmit.bind(this)
+      }
+
+
 
     render() {
       return <div>
@@ -35,6 +48,20 @@ class CartPage extends PureComponent {
         </div>
         </div>
     ))}
+    <hr />
+    <div className='cart-summary'>
+        <div>
+            <h1 className='sum-label'>Tax 21%:</h1>
+            <h1 className='sum-label'>Quantity:</h1>
+            <h1 className='sum-label'>Total:</h1>
+        </div>
+        <div>
+            <h1 className='sum-value'>{this.state.tax}</h1>
+            <h1 className='sum-value'>{this.state.quantity}</h1>
+            <h1 className='sum-value'>{this.state.total}</h1>
+        </div>
+        <button type='submit' disabled>ORDER</button>
+    </div>
     </div>
     </div>
     

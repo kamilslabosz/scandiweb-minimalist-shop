@@ -33,7 +33,7 @@ const GET_PRODUCTS = gql`
 class MainPage extends PureComponent{
   
 render(){
-    return <div className='cat-main'>
+    return <div className='cat-main space-at-end'>
         <h1 className='cat-name'>all</h1>
         <Query
         query={GET_PRODUCTS}>

@@ -426,3 +426,32 @@ input[type=radio]:checked + .attr-color-white {
   margin-left: 10%;
   width: 80%;
 }
+
+.cart-summary {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  width: 279px;
+  margin-bottom: 280px;
+}
+
+.sum-value {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.sum-label {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+hr {
+  border-color: #E5E5E5;
+  size: 1px;
+  border-top: #E5E5E5;
+  margin-top: 24px;
+}
+
+.space-at-end {
+  margin-bottom: 190px;
+}

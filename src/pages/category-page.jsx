@@ -38,7 +38,7 @@ class CategoryPage extends PureComponent {
   }
 
   render() {
-    return <div className='cat-main'>
+    return <div className='cat-main space-at-end'>
     <h1 className='cat-name'>{this.props.params.name}</h1>
     <Query
     query={GET_PRODUCTS}>
