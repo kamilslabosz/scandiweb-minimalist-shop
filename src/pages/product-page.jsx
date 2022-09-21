@@ -6,6 +6,7 @@ class ProductPage extends PureComponent {
     super(props);
     this.state = {
       newItem: {...this.props.data.product},
+      currImg: 0,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -47,17 +48,18 @@ class ProductPage extends PureComponent {
   return (
     <div className='product-page'>
     <div className='product-gallery'>
-    {gallery.map((image) => (
+    {gallery.map((image, index) => (
         <img 
         src={image}
-        alt={image}
+        alt='Photo-of-product'
         key={image}
         className='img-small'
+        onClick={() => this.setState({currImg: index})}
         />
     ))}
     </div>
     <img 
-    src={gallery[0]}
+    src={gallery[this.state.currImg]}
     className='product-current-img'
     />
     <ProductInfo 

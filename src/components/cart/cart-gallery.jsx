@@ -6,30 +6,33 @@ class CartGallery extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-          currImage: 0,
+          currImg: 0,
         }
         this.handleChange = this.handleChange.bind(this);
       }
 
       handleChange(direction){
-        const newImg = this.state.currImage + (1 * direction)
+        const newImg = this.state.currImg + (1 * direction)
         console.log(newImg);
         switch(newImg){
           case 0:
-            this.setState({currImage: (this.props.gallery.length-1)})
+            this.setState({currImg: (this.props.gallery.length-1)})
             break;
           case this.props.gallery.length:
-            this.setState({currImage: 0})
+            this.setState({currImg: 0})
+            break;
+          case -1:
+            this.setState({currImg: 0})
             break;
           default:
-            this.setState({currImage: newImg})
+            this.setState({currImg: newImg})
         }
       }
 
     render() {
       const gallery = this.props.gallery
       return <div>
-              <img className='cart-img' src={gallery[this.state.currImage]}/>
+              <img className='cart-img' src={gallery[this.state.currImg]}/>
               <img src={arrowLeft} alt='PreviousImage' className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>
               <img src={arrowRight} alt='NextImage' className='img-button arrow-right' onClick={() => this.handleChange(1)}/>
             </div>

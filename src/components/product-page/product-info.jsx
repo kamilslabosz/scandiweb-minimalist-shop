@@ -1,6 +1,9 @@
 import { PureComponent } from 'react';
+import { withRouter } from '../../utils/hoc';
 
 class ProductInfo extends PureComponent {
+
+    toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
 
 render(){
 
@@ -9,7 +12,8 @@ render(){
 
     return <div className='product-info'>
             <h1 className='brand-name'>{brand}</h1>
-            <p className='product-page-name'>{name}</p>
+            <p className='product-page-name' 
+            onClick={this.props.productPage ? null : this.toProductPage}>{name}</p>
             {this.props.productPage === false && <h1 className='product-page-price product-cart-price'>{prices[0].amount}</h1>}
             <form>
             {attributes.map((attr) => (
@@ -60,4 +64,4 @@ render(){
     }
 }
 
-export default ProductInfo;
+export default withRouter(ProductInfo);
