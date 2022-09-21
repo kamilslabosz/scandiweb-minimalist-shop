@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import ProductInfo from '../components/product-page/product-info';
 
 class ProductPage extends PureComponent {
   constructor(props) {
@@ -41,7 +42,7 @@ class ProductPage extends PureComponent {
 
   render() {
 
-    const { name, inStock, gallery, description, attributes, brand, prices} = this.props.data.product
+  const { gallery } = this.props.data.product
 
   return (
     <div className='product-page'>
@@ -59,52 +60,13 @@ class ProductPage extends PureComponent {
     src={gallery[0]}
     className='product-current-img'
     />
-    <div className='product-info'>
-        <h1 className='brand-name'>{brand}</h1>
-        <p className='product-page-name'>{name}</p>
-        <form>
-        {attributes.map((attr) => (
-            <div className='attr-flex-box' onChange={this.handleChange}>
-            <h1 
-            key={attr.id}
-            className='attr-name'
-            >{attr.name}:</h1>
-            { attr.type === "swatch"
-              ? attr.items.map((item, index) => (
-              <div>
-              <input type="radio" 
-                name={attr.name} 
-                value={index} 
-                id={attr.name + item.value}
-                checked={this.state.newItem[attr.name] == index}
-              ></input>
-              <label 
-              className={item.value === '#FFFFFF' 
-                ? 'attr-color-white'
-                : 'attr-color'} style={{background: item.value}} for={attr.name + item.value}></label>
-                </div>
-            )) 
-              : attr.items.map((item, index) => (<div>
-              <input type="radio" 
-                name={attr.name} 
-                value={index} 
-                id={attr.name + item.value}
-                checked={this.state.newItem[attr.name] == index}
-              ></input>
-              <label className='attr-value' for={attr.name + item.value}>{item.value}</label>
-              </div>))
-            }
-            </div>
-        ))}
-        <p className='product-price-tag'>Price:</p>
-        <h1 className='product-page-price'>{prices[0].amount}</h1>
-        {inStock
-        ? <button type='submit' onClick={this.handleSubmit}>ADD TO CART</button>
-        : <button className='grayed-bg' disabled>OUT OF STOCK</button>
-        }
-        </form>
-        <div className='product-descriptcion' dangerouslySetInnerHTML={{__html: description}}></div>
-    </div>
+    <ProductInfo 
+      product={this.props.data.product} 
+      newItem={this.state.newItem}
+      handleChange={this.handleChange}
+      handleSubmit={this.handleSubmit}
+      productPage={true}
+      />
     </div>
     )
   };

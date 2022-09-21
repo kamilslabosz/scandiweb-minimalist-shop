@@ -16,6 +16,7 @@ const GET_PRODUCTS = gql`
         attributes{
           id
           name
+          type
           items{
             value
             id

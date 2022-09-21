@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import MainPage from './pages/main-page';
 import CategoryPage from './pages/category-page';
 import ProductQuery from './components/product-page/product-query';
+import CartPage from './pages/cart';
 
 
 
@@ -73,7 +74,7 @@ class App extends PureComponent {
         <Route path='/' element={<MainPage quickAddToCart={this.quickAddToCart}/>} />
         <Route path='/product/:id' element={<ProductQuery addToCart={this.addToCart} />} />
         <Route path='/category/:name' element={<CategoryPage quickAddToCart={this.quickAddToCart} changeCategory={this.changeCategory}/>} />
-        <Route path='/cart' element={<ProductQuery />} />
+        <Route path='/cart' element={<CartPage cart={this.state.cart}/>} />
       </Routes>
     </BrowserRouter>
     )
