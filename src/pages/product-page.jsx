@@ -23,7 +23,7 @@ class ProductPage extends PureComponent {
    
   }
 
-  handleChange(e) {
+  handleChange(e, index) {
     const { name, value } = e.target
     this.setState(prevState => ({
       ...prevState,
@@ -63,6 +63,7 @@ class ProductPage extends PureComponent {
     <ProductInfo 
       product={this.props.data.product} 
       newItem={this.state.newItem}
+      index={0}
       handleChange={this.handleChange}
       handleSubmit={this.handleSubmit}
       productPage={true}

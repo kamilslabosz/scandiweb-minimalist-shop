@@ -5,7 +5,7 @@ class ProductInfo extends PureComponent {
 render(){
 
     const { name, inStock, description, attributes, brand, prices } = this.props.product
-
+    const index  = this.props.index
 
     return <div className='product-info'>
             <h1 className='brand-name'>{brand}</h1>
@@ -13,34 +13,36 @@ render(){
             {this.props.productPage === false && <h1 className='product-page-price product-cart-price'>{prices[0].amount}</h1>}
             <form>
             {attributes.map((attr) => (
-                <div className='attr-flex-box' onChange={this.props.handleChange}>
+                <div className='attr-flex-box' onChange={(e) => this.props.handleChange(e, index)}>
                 <h1 
                 key={attr.id}
                 className='attr-name'
                 >{attr.name}:</h1>
                 { attr.type === "swatch"
-                ? attr.items.map((item, index) => (
+                ? attr.items.map((item, idx) => (
                 <div>
                 <input type="radio" 
                     name={attr.name} 
-                    value={index} 
-                    id={attr.name + item.value}
-                    checked={this.props.newItem[attr.name] == index}
+                    value={idx} 
+                    id={index+attr.name + item.value}
+                    checked={this.props.newItem[attr.name] == idx}
                 ></input>
                 <label 
                 className={item.value === '#FFFFFF' 
                     ? 'attr-color-white'
-                    : 'attr-color'} style={{background: item.value}} for={attr.name + item.value}></label>
+                    : 'attr-color'} 
+                    style={{background: item.value}} 
+                    for={index+attr.name + item.value}></label>
                     </div>
                 )) 
-                : attr.items.map((item, index) => (<div>
+                : attr.items.map((item, idx) => (<div>
                 <input type="radio" 
                     name={attr.name} 
-                    value={index} 
-                    id={attr.name + item.value}
-                    checked={this.props.newItem[attr.name] == index}
+                    value={idx} 
+                    id={index+attr.name + item.value}
+                    checked={this.props.newItem[attr.name] == idx}
                 ></input>
-                <label className='attr-value' for={attr.name + item.value}>{item.value}</label>
+                <label className='attr-value' for={index+attr.name + item.value}>{item.value}</label>
                 </div>))
                 }
                 </div>

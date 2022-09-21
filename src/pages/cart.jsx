@@ -3,8 +3,7 @@ import ProductInfo from '../components/product-page/product-info';
 import { withRouter } from '../utils/hoc';
 import minus from '../images/svg/minus.svg'
 import plus from '../images/svg/plus.svg'
-import arrowLeft from '../images/svg/arrowLeft.svg'
-import arrowRight from '../images/svg/arrowRight.svg'
+import CartGallery from '../components/cart/cart-gallery';
 
 class CartPage extends PureComponent {
     constructor(props) {
@@ -15,11 +14,48 @@ class CartPage extends PureComponent {
           total: 0,
 
         }
-        // this.handleChange = this.handleChange.bind(this)
-        // this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.updateSummary = this.updateSummary.bind(this);
       }
 
+      handleChange(e, index) {
+        const { value, name } = e.target
+        let cart = [...this.props.cart]
+        let product = {
+            ...cart[index],
+            [name]: value,
+            cartId: cart[index].id,
+        }
+        product.attributes.forEach(attr => {
+            product.cartId = product.cartId+attr.name+product[attr.name]
+          })
+        cart[index] = product
+        console.log('name: '+name+' value: '+value+' index: '+index);
+        this.props.updateCart(cart);
+      }
 
+      updateSummary() { 
+        const newTotal = this.props.cart.map((item) => (
+            item.quantity * item.prices[0].amount
+        )).reduce((a, b) => a + b, 0)
+        const newQty = this.props.cart.map((item) => (
+            item.quantity
+        )).reduce((a, b) => a + b, 0)
+        const newTax = newTotal * 0.21
+        this.setState({
+            tax: (Math.round(newTax * 100) / 100),
+            quantity: (Math.round(newQty * 100) / 100),
+            total: (Math.round(newTotal * 100) / 100)
+        })
+      }
+
+      componentDidMount() {
+        this.updateSummary()
+      }
+
+      componentDidUpdate() {
+        this.updateSummary()
+      }
 
     render() {
       return <div>
@@ -27,24 +63,24 @@ class CartPage extends PureComponent {
       <h1 className='cat-name'>Cart</h1>
     </div>
     <div className='cart-all'>
+        {this.props.cart.length === 0 && <h1>Cart is empty</h1>}
     {this.props.cart.map((product, index) => (
         <div className='cart-product' key={index}>
         <ProductInfo 
         product={product}
         newItem={product}
-        handleChange={null}
+        index={index}
+        handleChange={this.handleChange}
         handleSubmit={null}
         productPage={false}
         />
         <div className='flex'>
             <div className='qty-box'>
-                <img src={plus} alt='plus' className='qty-button'/>
+                <img src={plus} alt='plus' className='qty-button' onClick={() => this.props.changeQty(product, 1)}/>
                 <h1 className='cart-qty'>{product.quantity}</h1>
-                <img src={minus} alt='minus' className='qty-button'/>
+                <img src={minus} alt='minus' className='qty-button' onClick={() => this.props.changeQty(product, -1)}/>
             </div>
-            <img className='cart-img' src={product.gallery[0]}/>
-            <img src={arrowLeft} alt='PreviousImage' className='img-button arrow-left'/>
-            <img src={arrowRight} alt='NextImage' className='img-button arrow-right'/>
+            <CartGallery gallery={product.gallery}/>
         </div>
         </div>
     ))}

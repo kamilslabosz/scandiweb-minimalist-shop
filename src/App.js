@@ -22,14 +22,16 @@ class App extends PureComponent {
     this.addToCart = this.addToCart.bind(this);
     this.checkAndAdd = this.checkAndAdd.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
+    this.updateCart = this.updateCart.bind(this);
+    this.changeQty = this.changeQty.bind(this);
   }
   
   checkAndAdd(product) {
-    const exist = this.state.cart.find((item) => item.id === product.id)
+    const exist = this.state.cart.find((item) => item.cartId === product.cartId)
 
     if (exist) {
       const newCart = this.state.cart.map((x) => 
-      x.id === product.id ? {...exist, quantity: exist.quantity + 1} : x
+      x.cartId === product.cartId ? {...exist, quantity: exist.quantity + 1} : x
       );
       this.setState({
         cart: newCart,
@@ -45,19 +47,26 @@ class App extends PureComponent {
  }
 
   quickAddToCart(product) {
-    const newItem = {...product}
+    const newItem = {...product, 
+      cartId: product.id
+    }
     newItem.attributes.forEach(attr => {
-      newItem.id = newItem.id+attr.name+"0"
+      newItem.cartId = newItem.cartId+attr.name+"0"
       newItem[attr.name] = 0
     });
     this.checkAndAdd(newItem)
   }
 
   addToCart(product) {
+    product.cartId = product.id
     product.attributes.forEach(attr => {
-      product.id = product.id+attr.name+product[attr.name]
+      product.cartId = product.cartId+attr.name+product[attr.name]
     })
     this.checkAndAdd(product)
+  }
+
+  updateCart(newCart) {
+    this.setState({cart: newCart})
   }
 
   changeCategory(newCategory) {
@@ -65,6 +74,18 @@ class App extends PureComponent {
       currCategory: newCategory
     })
   }
+
+  changeQty(product, n){
+    const prod = this.state.cart.find((item) => item.cartId === product.cartId)
+    const newCart = this.state.cart.map((x) => 
+    x.cartId === product.cartId ? {...prod, quantity: prod.quantity + (1*n)} : x
+    ).filter((item) => item.quantity > 0);
+    this.setState({
+      cart: newCart,
+      itemsInCart: this.state.itemsInCart + (1*n),
+    })
+  }
+
 
   render() {
   return (
@@ -74,7 +95,7 @@ class App extends PureComponent {
         <Route path='/' element={<MainPage quickAddToCart={this.quickAddToCart}/>} />
         <Route path='/product/:id' element={<ProductQuery addToCart={this.addToCart} />} />
         <Route path='/category/:name' element={<CategoryPage quickAddToCart={this.quickAddToCart} changeCategory={this.changeCategory}/>} />
-        <Route path='/cart' element={<CartPage cart={this.state.cart}/>} />
+        <Route path='/cart' element={<CartPage cart={this.state.cart} updateCart={this.updateCart} changeQty={this.changeQty}/> } />
       </Routes>
     </BrowserRouter>
     )
