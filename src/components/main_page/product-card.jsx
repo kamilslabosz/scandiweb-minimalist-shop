@@ -11,6 +11,7 @@ class ProductCard extends PureComponent{
     render(){
 
         const {name, gallery, inStock, prices, brand} = this.props.product
+        const { currencySymbol, currencyIdx } = this.props
         return <div className='product-card'>
             <div className='img-box'
             onClick={this.toProductPage}
@@ -40,7 +41,7 @@ class ProductCard extends PureComponent{
             <p 
             onClick={this.toProductPage}
             className={inStock ? "product-price" : "product-price grayed"}>
-                {prices[0].amount}
+                {currencySymbol}{prices[currencyIdx].amount}
             </p>
             
         </div>

@@ -9,12 +9,13 @@ render(){
 
     const { name, inStock, description, attributes, brand, prices } = this.props.product
     const index  = this.props.index
+    const { currencySymbol, currencyIdx } = this.props
 
     return <div className='product-info'>
             <h1 className='brand-name'>{brand}</h1>
             <p className='product-page-name' 
             onClick={this.props.productPage ? null : this.toProductPage}>{name}</p>
-            {this.props.productPage === false && <h1 className='product-page-price product-cart-price'>{prices[0].amount}</h1>}
+            {this.props.productPage === false && <h1 className='product-page-price product-cart-price'>{currencySymbol}{prices[currencyIdx].amount}</h1>}
             <form>
             {attributes.map((attr) => (
                 <div className='attr-flex-box' onChange={(e) => this.props.handleChange(e, index)}>
@@ -52,7 +53,7 @@ render(){
                 </div>
             ))}
             {this.props.productPage && <p className='product-price-tag'>Price:</p>}
-            {this.props.productPage && <h1 className='product-page-price'>{prices[0].amount}</h1>}
+            {this.props.productPage && <h1 className='product-page-price'>{currencySymbol}{prices[currencyIdx].amount}</h1>}
             {this.props.productPage && 
             (inStock
             ? <button type='submit' onClick={this.props.handleSubmit}>ADD TO CART</button>

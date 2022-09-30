@@ -63,6 +63,8 @@ class ProductPage extends PureComponent {
     className='product-current-img'
     />
     <ProductInfo 
+      currencyIdx={this.props.currencyIdx} 
+      currencySymbol={this.props.currencySymbol} 
       product={this.props.data.product} 
       newItem={this.state.newItem}
       index={0}

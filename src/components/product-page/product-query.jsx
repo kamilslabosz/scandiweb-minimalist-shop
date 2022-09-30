@@ -41,7 +41,11 @@ class Product extends PureComponent {
       {({ data }) =>{
         if (data === undefined) return null;
         
-        return <ProductPage  data={data} addToCart={this.props.addToCart}/>
+        return <ProductPage 
+        currencyIdx={this.props.currencyIdx} 
+        currencySymbol={this.props.currencySymbol}  
+        data={data} 
+        addToCart={this.props.addToCart}/>
       }}
     </Query>
     )

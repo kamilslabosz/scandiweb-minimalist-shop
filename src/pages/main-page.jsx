@@ -42,6 +42,8 @@ render(){
 
             return data.category.products.map((product) => (
               <ProductCard 
+              currencyIdx={this.props.currencyIdx} 
+              currencySymbol={this.props.currencySymbol} 
               product={product} 
               key={product.id} 
               quickAddToCart={this.props.quickAddToCart}

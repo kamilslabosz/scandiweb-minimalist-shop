@@ -47,6 +47,8 @@ class CategoryPage extends PureComponent {
 
         return data.category.products.filter(product => product.category === this.props.params.name).map((product) => (
           <ProductCard 
+          currencyIdx={this.props.currencyIdx} 
+          currencySymbol={this.props.currencySymbol} 
           product={product} 
           key={product.id} 
           quickAddToCart={this.props.quickAddToCart}

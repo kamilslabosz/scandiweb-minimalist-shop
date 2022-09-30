@@ -36,7 +36,7 @@ class CartPage extends PureComponent {
 
       updateSummary() { 
         const newTotal = this.props.cart.map((item) => (
-            item.quantity * item.prices[0].amount
+            item.quantity * item.prices[this.props.currencyIdx].amount
         )).reduce((a, b) => a + b, 0)
         const newQty = this.props.cart.map((item) => (
             item.quantity
@@ -67,6 +67,8 @@ class CartPage extends PureComponent {
     {this.props.cart.map((product, index) => (
         <div className='cart-product' key={index}>
         <ProductInfo 
+        currencyIdx={this.props.currencyIdx} 
+        currencySymbol={this.props.currencySymbol} 
         product={product}
         newItem={product}
         index={index}
@@ -92,9 +94,9 @@ class CartPage extends PureComponent {
             <h1 className='sum-label'>Total:</h1>
         </div>
         <div>
-            <h1 className='sum-value'>{this.state.tax}</h1>
+            <h1 className='sum-value'>{this.props.currencySymbol}{this.state.tax}</h1>
             <h1 className='sum-value'>{this.state.quantity}</h1>
-            <h1 className='sum-value'>{this.state.total}</h1>
+            <h1 className='sum-value'>{this.props.currencySymbol}{this.state.total}</h1>
         </div>
         <button type='submit' disabled>ORDER</button>
     </div>

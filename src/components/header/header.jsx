@@ -64,7 +64,7 @@ class Header extends PureComponent {
               <div className='brand-icon'>
                 <img src={logo} id='logo'  alt='logo'/>
               </div>
-              <Actions />
+              <Actions changeCurrency={this.props.changeCurrency} currencyIdx={this.props.currencyIdx} currencySymbol={this.props.currencySymbol}/>
         </div>
     }
 }
