@@ -60,6 +60,7 @@ class CartPage extends PureComponent {
     render() {
       return <div>
       <div className='cat-main'>
+      {this.props.renderOverlay && <div className='dim-overlay'/>}
       <h1 className='cat-name'>Cart</h1>
     </div>
     <div className='cart-all'>

@@ -47,6 +47,7 @@ class ProductPage extends PureComponent {
 
   return (
     <div className='product-page'>
+    {this.props.renderOverlay && <div className='dim-overlay'/>}
     <div className='product-gallery'>
     {gallery.map((image, index) => (
         <img 

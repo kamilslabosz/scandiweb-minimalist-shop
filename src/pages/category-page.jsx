@@ -39,6 +39,7 @@ class CategoryPage extends PureComponent {
 
   render() {
     return <div className='cat-main space-at-end'>
+    {this.props.renderOverlay && <div className='dim-overlay'/>}
     <h1 className='cat-name'>{this.props.params.name}</h1>
     <Query
     query={GET_PRODUCTS}>

@@ -18,6 +18,7 @@ class App extends PureComponent {
       currencyIdx: 0,
       currencySymbol: '$',
       itemsInCart: 0,
+      renderOverlay: false,
     }
     this.quickAddToCart = this.quickAddToCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -26,6 +27,7 @@ class App extends PureComponent {
     this.updateCart = this.updateCart.bind(this);
     this.changeQty = this.changeQty.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this)
+    this.changeRenderOverlay = this.changeRenderOverlay.bind(this)
   }
   
   checkAndAdd(product) {
@@ -95,16 +97,56 @@ class App extends PureComponent {
     })
   }
 
+  changeRenderOverlay() {
+    const check = this.state.renderOverlay
+    this.setState({
+      renderOverlay: check ? false: true
+    })
+  }
+
 
   render() {
   return (
     <BrowserRouter>
-      <Header changeCategory={this.changeCategory} changeCurrency={this.changeCurrency} currCategory={this.state.currCategory} currencyIdx={this.state.currencyIdx} currencySymbol={this.state.currencySymbol}/>
+      <Header 
+        updateCart={this.updateCart} 
+        changeQty={this.changeQty} 
+        changeCategory={this.changeCategory} 
+        changeCurrency={this.changeCurrency} 
+        changeRenderOverlay={this.changeRenderOverlay}
+        currCategory={this.state.currCategory} 
+        currencyIdx={this.state.currencyIdx} 
+        currencySymbol={this.state.currencySymbol} 
+        cart={this.state.cart} 
+        itemsInCart={this.state.itemsInCart}/>
       <Routes>
-        <Route path='/' element={<MainPage currencySymbol={this.state.currencySymbol} currencyIdx={this.state.currencyIdx} quickAddToCart={this.quickAddToCart}/>} />
-        <Route path='/product/:id' element={<ProductQuery currencySymbol={this.state.currencySymbol} currencyIdx={this.state.currencyIdx} addToCart={this.addToCart} />} />
-        <Route path='/category/:name' element={<CategoryPage currencySymbol={this.state.currencySymbol} currencyIdx={this.state.currencyIdx} quickAddToCart={this.quickAddToCart} changeCategory={this.changeCategory}/>} />
-        <Route path='/cart' element={<CartPage currencySymbol={this.state.currencySymbol} currencyIdx={this.state.currencyIdx} cart={this.state.cart} updateCart={this.updateCart} changeQty={this.changeQty}/> } />
+        <Route path='/' 
+          element={<MainPage 
+            renderOverlay={this.state.renderOverlay}
+            currencySymbol={this.state.currencySymbol} 
+            currencyIdx={this.state.currencyIdx} 
+            quickAddToCart={this.quickAddToCart}/>} />
+        <Route path='/product/:id' 
+          element={<ProductQuery 
+            renderOverlay={this.state.renderOverlay}
+            currencySymbol={this.state.currencySymbol} 
+            currencyIdx={this.state.currencyIdx} 
+            addToCart={this.addToCart} />} />
+        <Route path='/category/:name' 
+          element={<CategoryPage
+            renderOverlay={this.state.renderOverlay}
+            currencySymbol={this.state.currencySymbol} 
+            currencyIdx={this.state.currencyIdx} 
+            quickAddToCart={this.quickAddToCart} 
+            changeCategory={this.changeCategory}/>} />
+        <Route path='/cart' 
+          element={<CartPage 
+            renderOverlay={this.state.renderOverlay}
+            currencySymbol={this.state.currencySymbol} 
+            currencyIdx={this.state.currencyIdx} 
+            cart={this.state.cart} 
+            updateCart={this.updateCart} 
+            changeQty={this.changeQty}/> } />
       </Routes>
     </BrowserRouter>
     )

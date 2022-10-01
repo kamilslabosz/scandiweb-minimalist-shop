@@ -34,6 +34,7 @@ class MainPage extends PureComponent{
   
 render(){
     return <div className='cat-main space-at-end'>
+          {this.props.renderOverlay && <div className='dim-overlay'/>}
         <h1 className='cat-name'>all</h1>
         <Query
         query={GET_PRODUCTS}>

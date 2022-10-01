@@ -1,10 +1,11 @@
 import { PureComponent } from 'react';
 import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
-import cart from '../../images/svg/cart.svg'
+import cartImg from '../../images/svg/cart.svg'
 import vector from '../../images/svg/vector.svg'
 import vectorUp from '../../images/svg/vectorUp.svg'
 import { withRouter } from '../../utils/hoc';
+import MiniCart from './mini-cart';
 
 const GET_CURRENCIES = gql`
   query GetCurrencies {
@@ -20,14 +21,24 @@ class Actions extends PureComponent {
         super(props);
         this.state = {
           renderCurrBox: false,
+          renderMini: false,
         }
         this.renderChange = this.renderChange.bind(this)
+        this.miniRenderChange = this.miniRenderChange.bind(this)
       }
     
       renderChange() {
         const check = this.state.renderCurrBox
         this.setState({
             renderCurrBox: check ? false: true
+        })
+      }
+
+      miniRenderChange() {
+        const check = this.state.renderMini
+        this.props.changeRenderOverlay()
+        this.setState({
+            renderMini: check ? false: true
         })
       }
 
@@ -38,6 +49,7 @@ class Actions extends PureComponent {
       }
 
     render(){
+      const { cart, itemsInCart, currencySymbol, currencyIdx } = this.props
     return <div className='actions'>
         <p className='action-item' onClick={this.renderChange}>{this.props.currencySymbol}</p>
         <img
@@ -54,7 +66,9 @@ class Actions extends PureComponent {
                 if (data === undefined) return null;
 
                 return data.currencies.map((currency, index) => (
-                <div className={this.props.currencyIdx == index
+                <div 
+                key={currency.label}
+                className={this.props.currencyIdx == index
                 ? 'currency-button currency-checked'
                 : 'currency-button'}>
                     <input 
@@ -74,9 +88,20 @@ class Actions extends PureComponent {
             </Query>
             </div>}
             
-            <img src={cart} id='cart' alt='cart' className='action-item' onClick={() => this.props.navigate("/cart")}/>
+            <img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
+            {this.props.itemsInCart != 0 && <div className='cart-items'>
+              <p className='cart-num'>{itemsInCart}</p>
+            </div>}
+           {this.state.renderMini && <MiniCart
+           miniRenderChange={this.miniRenderChange} 
+           cart={this.props.cart} 
+           currencyIdx={this.props.currencyIdx} 
+           currencySymbol={this.props.currencySymbol}
+           updateCart={this.props.updateCart}
+           itemsInCart={this.props.itemsInCart} 
+           changeQty={this.props.changeQty}/>}
         </div>
     }
 }
 
-export default withRouter(Actions);
+export default Actions;
