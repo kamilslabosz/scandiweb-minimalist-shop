@@ -59,6 +59,7 @@ class MiniCart extends PureComponent {
     <h1 className='mini-cart-bold'>My Bag</h1>
     <h1 className='mini-cart-header'>, {itemsInCart} item{itemsInCart!==1 && 's'}</h1>
     </div>
+    <div className='mini-cart-scroll'>
     {this.props.cart.map((product, index) => (
       <div className='mini-cart-product row' key={index}>
         <div className='column'>
@@ -67,7 +68,7 @@ class MiniCart extends PureComponent {
         <h1 className='mini-cart-price'>{currencySymbol}{product.prices[currencyIdx].amount}</h1>
         {product.attributes.map((attr) =>
           <div onChange={(e) => this.handleChange(e, index)}>
-            <h1>{attr.name}:</h1>
+            <h1 className='mini-attr-name'>{attr.name}:</h1>
             <form className='row'>
             { attr.type === "swatch"
             ? attr.items.map((item, idx) => (
@@ -93,7 +94,11 @@ class MiniCart extends PureComponent {
                 id={index+attr.name + item.value}
                 checked={product[attr.name] == idx}
             ></input>
-            <label className='attr-value mini-cart-attr' for={index+attr.name + item.value}>{item.value}</label>
+            <label 
+            className={attr.name === 'Capacity'
+              ? 'attr-value mini-cart-attr mini-attr-wider'
+              : 'attr-value mini-cart-attr'} 
+            for={index+attr.name + item.value}>{item.value}</label>
             </div>))
             }
             </form>
@@ -111,6 +116,7 @@ class MiniCart extends PureComponent {
                 <img src={product.gallery[0]} alt={product.name} className='mini-cart-img' />
             </div>
       </div>))}
+      </div>
     
     <div className='row mini-summary'>
     <h1 className='mini-cart-total'>Total: </h1>

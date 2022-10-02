@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import cartImg from '../../images/svg/cart.svg'
