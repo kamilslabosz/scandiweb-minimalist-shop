@@ -14,10 +14,10 @@ const GET_PRODUCTS = gql`
         category
         brand
         attributes{
-          id
           name
           type
           items{
+            displayValue
             value
             id
           }
@@ -37,7 +37,8 @@ render(){
           {this.props.renderOverlay && <div className='dim-overlay'/>}
         <h1 className='cat-name'>all</h1>
         <Query
-        query={GET_PRODUCTS}>
+        query={GET_PRODUCTS}
+        fetchPolicy='network-only'>
           {({ data }) => {
             if (data === undefined) return null;
 

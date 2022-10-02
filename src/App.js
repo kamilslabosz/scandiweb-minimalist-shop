@@ -35,8 +35,6 @@ class App extends PureComponent {
        ...state,
         renderOverlay: false
       }
-    console.log(state);
-    console.log(newState);
     window.localStorage.setItem('state', JSON.stringify(newState));
     super.setState(state);
   }

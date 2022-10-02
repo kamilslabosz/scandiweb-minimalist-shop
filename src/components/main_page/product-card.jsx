@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import emptyCart from "../../images/svg/emptyCart.svg"
 import { withRouter } from '../../utils/hoc';
+
 class ProductCard extends PureComponent{
     constructor(props) {
         super(props);
@@ -10,7 +11,7 @@ class ProductCard extends PureComponent{
 
     render(){
 
-        const {name, gallery, inStock, prices, brand} = this.props.product
+        const { name, gallery, inStock, prices, brand } = this.props.product
         const { currencySymbol, currencyIdx } = this.props
         return <div className='product-card'>
             <div className='img-box'

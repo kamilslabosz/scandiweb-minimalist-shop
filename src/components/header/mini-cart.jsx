@@ -57,7 +57,7 @@ class MiniCart extends PureComponent {
     return <div className='mini-cart-box'>
     <div className='row'>
     <h1 className='mini-cart-bold'>My Bag</h1>
-    <h1 className='mini-cart-header'>, {itemsInCart} items</h1>
+    <h1 className='mini-cart-header'>, {itemsInCart} item{itemsInCart!==1 && 's'}</h1>
     </div>
     {this.props.cart.map((product, index) => (
       <div className='mini-cart-product row' key={index}>
