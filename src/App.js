@@ -12,7 +12,7 @@ import CartPage from './pages/cart';
 class App extends PureComponent {
   constructor(props) {
     super(props);
-    this.state ={
+    this.state = JSON.parse(window.localStorage.getItem('state')) || {
       cart: [],
       currCategory: 'all',
       currencyIdx: 0,
@@ -28,6 +28,17 @@ class App extends PureComponent {
     this.changeQty = this.changeQty.bind(this);
     this.changeCurrency = this.changeCurrency.bind(this)
     this.changeRenderOverlay = this.changeRenderOverlay.bind(this)
+  }
+
+  setState(state) {
+    const newState = {...this.state,
+       ...state,
+        renderOverlay: false
+      }
+    console.log(state);
+    console.log(newState);
+    window.localStorage.setItem('state', JSON.stringify(newState));
+    super.setState(state);
   }
   
   checkAndAdd(product) {
