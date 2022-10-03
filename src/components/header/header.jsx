@@ -16,20 +16,17 @@ const GET_CATEGORIES = gql`
 class Header extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.goToHome = this.goToHome.bind(this);
     this.goToCat = this.goToCat.bind(this)
-
   }
 
-  goToHome(){
-    this.props.changeCategory('all')
-    this.props.navigate('/')
-  }
-
-  goToCat(category){
+  goToCat(e, category){
+    e.preventDefault()
     this.props.changeCategory(category)
-    this.props.navigate('/category/'+category)
+    if (category === 'all') {
+      this.props.navigate('/')
+    }else{
+      this.props.navigate('/category/'+category)
+    }
   }
 
     render(){
@@ -42,20 +39,21 @@ class Header extends PureComponent {
                     if (data === undefined) return null;
 
                     return data.categories.map(({ name }) => (
-                      <div 
+                      <a
                       className={name === this.props.currCategory
                       ? "category chosen-cat-div"
                       : "category"} 
                       key={name}
-                      onClick={name === 'all'
-                      ? () => this.goToHome()
-                      : () => this.goToCat(name)}>
+                      href={name === 'all'
+                      ? '/'
+                      : '/category/'+name}
+                      onClick={(e) => this.goToCat(e, name)}>
                         <h1 
                         className={name === this.props.currCategory
                       ? "cat-label chosen-cat-label"
                       : "cat-label"} 
                         >{name}</h1>
-                      </div>
+                      </a>
                   ))
                   }}
                 </Query>

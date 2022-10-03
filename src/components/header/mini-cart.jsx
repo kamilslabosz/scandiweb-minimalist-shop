@@ -47,7 +47,8 @@ class MiniCart extends PureComponent {
         this.updateSummary()
       }
 
-      goToCart() {
+      goToCart(e) {
+        e.preventDefault();
         this.props.miniRenderChange()
         this.props.navigate("/cart")
       }
@@ -123,7 +124,7 @@ class MiniCart extends PureComponent {
     <h1 className='mini-cart-sum'>{currencySymbol}{this.state.total}</h1>
     </div>
     <div className='row mini-buttons'>
-    <button className='mini-cart-btn mini-btn-white' onClick={this.goToCart}>VIEW BAG</button>
+    <a href='/cart' onClick={(e) => this.goToCart(e)}><button className='mini-cart-btn mini-btn-white'>VIEW BAG</button></a>
     <button className='mini-cart-btn'>CHECKOUT</button>  
     </div>             
     </div>

@@ -5,17 +5,31 @@ import { withRouter } from '../../utils/hoc';
 class ProductCard extends PureComponent{
     constructor(props) {
         super(props);
+        this.state = {
+            renderAnimation : false
+        }
+        this.addToCart = this.addToCart.bind(this)
       }
 
     toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
 
+
+    addToCart(product) {
+        this.setState({renderAnimation: true})
+        this.props.quickAddToCart(product)
+        setTimeout(() => this.setState({renderAnimation: false}), 100)
+        
+    }
+
     render(){
 
-        const { name, gallery, inStock, prices, brand } = this.props.product
+        const { id, name, gallery, inStock, prices, brand } = this.props.product
         const { currencySymbol, currencyIdx } = this.props
-        return <div className='product-card'>
-            <div className='img-box'
-            onClick={this.toProductPage}
+        return <a className='product-card' href={'/product/'+id} onClick={(e) => e.preventDefault()}>
+            <div className={this.state.renderAnimation
+                ? 'img-box img-grayed'
+                : 'img-box'}
+                onClick={this.toProductPage}
             >
             <img 
             src={gallery[0]} 
@@ -26,7 +40,7 @@ class ProductCard extends PureComponent{
             <div 
             className={inStock ? 'cart-btn green-bg' : 'cart-btn grayed-bg'}
             onClick={inStock 
-                ? () => {this.props.quickAddToCart(this.props.product)}
+                ? () => {this.addToCart(this.props.product)}
                 : null}
             >
                 <img src={emptyCart}
@@ -45,7 +59,7 @@ class ProductCard extends PureComponent{
                 {currencySymbol}{prices[currencyIdx].amount}
             </p>
             
-        </div>
+        </a>
         }
     }
     

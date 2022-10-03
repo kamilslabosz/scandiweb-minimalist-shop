@@ -2,6 +2,10 @@ body {
   background: #FFFFFF;
 }
 
+a {
+  text-decoration: none;
+}
+
 h1, p {
   color: #1D1F22;
 
@@ -672,7 +676,7 @@ input[type=radio]:checked + .mini-attr-white {
 
 .mini-cart-scroll {
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 55vh;
 }
 
 .mini-cart-scroll::-webkit-scrollbar {

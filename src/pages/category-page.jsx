@@ -15,7 +15,6 @@ const GET_PRODUCTS = gql`
         category
         brand
         attributes{
-          id
           name
           type
           items{
@@ -42,7 +41,8 @@ class CategoryPage extends PureComponent {
     {this.props.renderOverlay && <div className='dim-overlay'/>}
     <h1 className='cat-name'>{this.props.params.name}</h1>
     <Query
-    query={GET_PRODUCTS}>
+    query={GET_PRODUCTS}
+    fetchPolicy='network-only'>
       {({ data }) => {
         if (data === undefined) return null;
 

@@ -23,6 +23,7 @@ class Actions extends PureComponent {
           renderCurrBox: false,
           renderMini: false,
         }
+        this.currBox = React.createRef();
         this.renderChange = this.renderChange.bind(this)
         this.miniRenderChange = this.miniRenderChange.bind(this)
       }
@@ -32,6 +33,11 @@ class Actions extends PureComponent {
         this.setState({
             renderCurrBox: check ? false: true
         })
+        if (check) {
+          document.removeEventListener("mousedown", this.handleClickOutside);
+        } else {
+          document.addEventListener("mousedown", this.handleClickOutside);
+        }
       }
 
       miniRenderChange() {
@@ -48,6 +54,13 @@ class Actions extends PureComponent {
         this.renderChange()
       }
 
+      handleClickOutside = (e) => {
+        if (this.currBox.current &&
+          !this.currBox.current.contains(e.target)){
+            this.renderChange();
+          }
+      }    
+
     render(){
       const { cart, itemsInCart, currencySymbol, currencyIdx } = this.props
     return <div className='actions'>
@@ -59,7 +72,7 @@ class Actions extends PureComponent {
         alt='arrow-down'
         className='currency-vector'/>
         {this.state.renderCurrBox &&
-        <div className='currency-box' onChange={(e) => this.handleChange(e)}>
+        <div className='currency-box' onChange={(e) => this.handleChange(e)} ref={this.currBox}>
             <Query
             query={GET_CURRENCIES}>
             {({ data }) => {
