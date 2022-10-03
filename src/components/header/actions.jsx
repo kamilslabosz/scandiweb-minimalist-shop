@@ -4,7 +4,6 @@ import { Query } from '@apollo/client/react/components';
 import cartImg from '../../images/svg/cart.svg'
 import vector from '../../images/svg/vector.svg'
 import vectorUp from '../../images/svg/vectorUp.svg'
-import { withRouter } from '../../utils/hoc';
 import MiniCart from './mini-cart';
 
 const GET_CURRENCIES = gql`
@@ -62,16 +61,19 @@ class Actions extends PureComponent {
       }    
 
     render(){
-      const { cart, itemsInCart, currencySymbol, currencyIdx } = this.props
+
+      const { itemsInCart, currencySymbol, currencyIdx } = this.props
+      const { renderMini, renderCurrBox } = this.state
+
     return <div className='actions'>
-        <p className='action-item' onClick={this.renderChange}>{this.props.currencySymbol}</p>
+        <p className='action-item' onClick={this.renderChange}>{currencySymbol}</p>
         <img
-        src={this.state.renderCurrBox
+        src={renderCurrBox
             ? vectorUp
             : vector}
         alt='arrow-down'
         className='currency-vector'/>
-        {this.state.renderCurrBox &&
+        {renderCurrBox &&
         <div className='currency-box' onChange={(e) => this.handleChange(e)} ref={this.currBox}>
             <Query
             query={GET_CURRENCIES}>
@@ -81,7 +83,7 @@ class Actions extends PureComponent {
                 return data.currencies.map((currency, index) => (
                 <div 
                 key={currency.label}
-                className={this.props.currencyIdx == index
+                className={currencyIdx == index
                 ? 'currency-button currency-checked'
                 : 'currency-button'}>
                     <input 
@@ -89,7 +91,7 @@ class Actions extends PureComponent {
                     name={currency.symbol}
                     value={index}
                     id={currency.label}
-                    checked={this.props.currencyIdx == index}
+                    checked={currencyIdx == index}
                     ></input>
                     <label
                     className='currency-label'
@@ -102,10 +104,10 @@ class Actions extends PureComponent {
             </div>}
             
             <img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
-            {this.props.itemsInCart != 0 && <div className='cart-items'>
+            {itemsInCart != 0 && <div className='cart-items'>
               <p className='cart-num'>{itemsInCart}</p>
             </div>}
-           {this.state.renderMini && <MiniCart
+           {renderMini && <MiniCart
            miniRenderChange={this.miniRenderChange} 
            cart={this.props.cart} 
            currencyIdx={this.props.currencyIdx} 

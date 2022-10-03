@@ -37,22 +37,25 @@ class CategoryPage extends PureComponent {
   }
 
   render() {
+
+    const { renderOverlay, params, currencyIdx, currencySymbol, quickAddToCart } = this.props
+
     return <div className='cat-main space-at-end'>
-    {this.props.renderOverlay && <div className='dim-overlay'/>}
-    <h1 className='cat-name'>{this.props.params.name}</h1>
+    {renderOverlay && <div className='dim-overlay'/>}
+    <h1 className='cat-name'>{params.name}</h1>
     <Query
     query={GET_PRODUCTS}
     fetchPolicy='network-only'>
       {({ data }) => {
         if (data === undefined) return null;
 
-        return data.category.products.filter(product => product.category === this.props.params.name).map((product) => (
+        return data.category.products.filter(product => product.category === params.name).map((product) => (
           <ProductCard 
-          currencyIdx={this.props.currencyIdx} 
-          currencySymbol={this.props.currencySymbol} 
+          currencyIdx={currencyIdx} 
+          currencySymbol={currencySymbol} 
           product={product} 
           key={product.id} 
-          quickAddToCart={this.props.quickAddToCart}
+          quickAddToCart={quickAddToCart}
           />
         ))
       }}

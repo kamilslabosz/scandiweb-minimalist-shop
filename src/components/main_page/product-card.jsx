@@ -23,10 +23,12 @@ class ProductCard extends PureComponent{
 
     render(){
 
+        const { product, currencySymbol, currencyIdx } = this.props
         const { id, name, gallery, inStock, prices, brand } = this.props.product
-        const { currencySymbol, currencyIdx } = this.props
+        const { renderAnimation } = this.state
+
         return <a className='product-card' href={'/product/'+id} onClick={(e) => e.preventDefault()}>
-            <div className={this.state.renderAnimation
+            <div className={renderAnimation
                 ? 'img-box img-grayed'
                 : 'img-box'}
                 onClick={this.toProductPage}
@@ -40,7 +42,7 @@ class ProductCard extends PureComponent{
             <div 
             className={inStock ? 'cart-btn green-bg' : 'cart-btn grayed-bg'}
             onClick={inStock 
-                ? () => {this.addToCart(this.props.product)}
+                ? () => {this.addToCart(product)}
                 : null}
             >
                 <img src={emptyCart}

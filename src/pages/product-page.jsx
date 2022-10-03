@@ -44,10 +44,13 @@ class ProductPage extends PureComponent {
   render() {
 
   const { gallery } = this.props.data.product
+  const { renderOverlay } = this.props
+  const { currImg } = this.state
 
   return (
+    <div>
+    {renderOverlay && <div className='dim-overlay'/>}
     <div className='product-page'>
-    {this.props.renderOverlay && <div className='dim-overlay'/>}
     <div className='product-gallery'>
     {gallery.map((image, index) => (
         <img 
@@ -60,7 +63,7 @@ class ProductPage extends PureComponent {
     ))}
     </div>
     <img 
-    src={gallery[this.state.currImg]}
+    src={gallery[currImg]}
     className='product-current-img'
     />
     <ProductInfo 
@@ -73,6 +76,7 @@ class ProductPage extends PureComponent {
       handleSubmit={this.handleSubmit}
       productPage={true}
       />
+    </div>
     </div>
     )
   };

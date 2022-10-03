@@ -30,6 +30,7 @@ class Header extends PureComponent {
   }
 
     render(){
+      const { currCategory } = this.props
     return <div className='header'>
               <div className='navigation'>
                 <nav>
@@ -40,7 +41,7 @@ class Header extends PureComponent {
 
                     return data.categories.map(({ name }) => (
                       <a
-                      className={name === this.props.currCategory
+                      className={name === currCategory
                       ? "category chosen-cat-div"
                       : "category"} 
                       key={name}
@@ -49,7 +50,7 @@ class Header extends PureComponent {
                       : '/category/'+name}
                       onClick={(e) => this.goToCat(e, name)}>
                         <h1 
-                        className={name === this.props.currCategory
+                        className={name === currCategory
                       ? "cat-label chosen-cat-label"
                       : "cat-label"} 
                         >{name}</h1>

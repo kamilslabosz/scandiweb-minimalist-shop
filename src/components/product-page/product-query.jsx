@@ -45,6 +45,7 @@ class Product extends PureComponent {
         currencyIdx={this.props.currencyIdx} 
         currencySymbol={this.props.currencySymbol}  
         data={data} 
+        renderOverlay={this.props.renderOverlay}
         addToCart={this.props.addToCart}/>
       }}
     </Query>

@@ -28,8 +28,9 @@ class CartGallery extends PureComponent {
 
     render() {
       const gallery = this.props.gallery
+      const currImg = this.state.currImg
       return <div>
-              <img className='cart-img' src={gallery[this.state.currImg]}/>
+              <img className='cart-img' src={gallery[currImg]}/>
               
               {gallery.length > 1 && <img src={arrowLeft} alt='PreviousImage' className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
               {gallery.length > 1 && <img src={arrowRight} alt='NextImage' className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}

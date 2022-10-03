@@ -58,18 +58,22 @@ class CartPage extends PureComponent {
       }
 
     render() {
+
+      const { renderOverlay, cart, currencyIdx, currencySymbol, changeQty } = this.props
+      const { tax, quantity, total } = this.state
+      
       return <div>
       <div className='cat-main'>
-      {this.props.renderOverlay && <div className='dim-overlay'/>}
+      {renderOverlay && <div className='dim-overlay'/>}
       <h1 className='cat-name'>Cart</h1>
     </div>
     <div className='cart-all'>
-        {this.props.cart.length === 0 && <h1>Cart is empty</h1>}
-    {this.props.cart.map((product, index) => (
+        {cart.length === 0 && <h1>Cart is empty</h1>}
+    {cart.map((product, index) => (
         <div className='cart-product' key={index}>
         <ProductInfo 
-        currencyIdx={this.props.currencyIdx} 
-        currencySymbol={this.props.currencySymbol} 
+        currencyIdx={currencyIdx} 
+        currencySymbol={currencySymbol} 
         product={product}
         newItem={product}
         index={index}
@@ -79,9 +83,9 @@ class CartPage extends PureComponent {
         />
         <div className='flex'>
             <div className='qty-box'>
-                <img src={plus} alt='plus' className='qty-button' onClick={() => this.props.changeQty(product, 1)}/>
+                <img src={plus} alt='plus' className='qty-button' onClick={() => changeQty(product, 1)}/>
                 <h1 className='cart-qty'>{product.quantity}</h1>
-                <img src={minus} alt='minus' className='qty-button' onClick={() => this.props.changeQty(product, -1)}/>
+                <img src={minus} alt='minus' className='qty-button' onClick={() => changeQty(product, -1)}/>
             </div>
             <CartGallery gallery={product.gallery}/>
         </div>
@@ -95,9 +99,9 @@ class CartPage extends PureComponent {
             <h1 className='sum-label'>Total:</h1>
         </div>
         <div>
-            <h1 className='sum-value'>{this.props.currencySymbol}{this.state.tax}</h1>
-            <h1 className='sum-value'>{this.state.quantity}</h1>
-            <h1 className='sum-value'>{this.props.currencySymbol}{this.state.total}</h1>
+            <h1 className='sum-value'>{currencySymbol}{tax}</h1>
+            <h1 className='sum-value'>{quantity}</h1>
+            <h1 className='sum-value'>{currencySymbol}{total}</h1>
         </div>
         <button type='submit' disabled>ORDER</button>
     </div>

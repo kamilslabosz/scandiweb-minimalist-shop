@@ -33,8 +33,11 @@ const GET_PRODUCTS = gql`
 class MainPage extends PureComponent{
   
 render(){
+
+  const { renderOverlay, currencyIdx, currencySymbol,quickAddToCart } = this.props
+
     return <div className='cat-main space-at-end'>
-          {this.props.renderOverlay && <div className='dim-overlay'/>}
+          {renderOverlay && <div className='dim-overlay'/>}
         <h1 className='cat-name'>all</h1>
         <Query
         query={GET_PRODUCTS}
@@ -44,11 +47,11 @@ render(){
 
             return data.category.products.map((product) => (
               <ProductCard 
-              currencyIdx={this.props.currencyIdx} 
-              currencySymbol={this.props.currencySymbol} 
+              currencyIdx={currencyIdx} 
+              currencySymbol={currencySymbol} 
               product={product} 
               key={product.id} 
-              quickAddToCart={this.props.quickAddToCart}
+              quickAddToCart={quickAddToCart}
               />
             ))
           }}

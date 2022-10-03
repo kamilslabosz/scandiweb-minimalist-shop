@@ -54,14 +54,17 @@ class MiniCart extends PureComponent {
       }
 
     render(){
-      const { cart, itemsInCart, currencySymbol, currencyIdx } = this.props
+
+      const { cart, itemsInCart, currencySymbol, currencyIdx, changeQty } = this.props
+      const { total } = this.state
+
     return <div className='mini-cart-box'>
     <div className='row'>
     <h1 className='mini-cart-bold'>My Bag</h1>
     <h1 className='mini-cart-header'>, {itemsInCart} item{itemsInCart!==1 && 's'}</h1>
     </div>
     <div className='mini-cart-scroll'>
-    {this.props.cart.map((product, index) => (
+    {cart.map((product, index) => (
       <div className='mini-cart-product row' key={index}>
         <div className='column'>
         <h1 className='mini-cart-name'>{product.brand}</h1>
@@ -110,9 +113,9 @@ class MiniCart extends PureComponent {
         </div>
         <div className='flex align-center'>
                 <div className='qty-box mini-cart-qty'>
-                    <img src={plus} alt='plus' className='mini-qty-button' onClick={() => this.props.changeQty(product, 1)}/>
+                    <img src={plus} alt='plus' className='mini-qty-button' onClick={() => changeQty(product, 1)}/>
                     <h1 className='cart-qty'>{product.quantity}</h1>
-                    <img src={minus} alt='minus' className='mini-qty-button' onClick={() => this.props.changeQty(product, -1)}/>
+                    <img src={minus} alt='minus' className='mini-qty-button' onClick={() => changeQty(product, -1)}/>
                 </div>
                 <img src={product.gallery[0]} alt={product.name} className='mini-cart-img' />
             </div>
@@ -121,7 +124,7 @@ class MiniCart extends PureComponent {
     
     <div className='row mini-summary'>
     <h1 className='mini-cart-total'>Total: </h1>
-    <h1 className='mini-cart-sum'>{currencySymbol}{this.state.total}</h1>
+    <h1 className='mini-cart-sum'>{currencySymbol}{total}</h1>
     </div>
     <div className='row mini-buttons'>
     <a href='/cart' onClick={(e) => this.goToCart(e)}><button className='mini-cart-btn mini-btn-white'>VIEW BAG</button></a>
