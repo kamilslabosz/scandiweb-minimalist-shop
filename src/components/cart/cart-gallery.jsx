@@ -13,7 +13,6 @@ class CartGallery extends PureComponent {
 
       handleChange(direction){
         const newImg = this.state.currImg + (1 * direction)
-        console.log(newImg);
         switch(newImg){
           case this.props.gallery.length:
             this.setState({currImg: 0})
@@ -26,11 +25,19 @@ class CartGallery extends PureComponent {
         }
       }
 
+      componentDidUpdate(prevProps){
+        if (prevProps.product.id !== this.props.product.id){
+          this.setState({currImg: 0})
+        }
+      }
+
     render() {
-      const gallery = this.props.gallery
+
+      const {gallery, product} = this.props
       const currImg = this.state.currImg
+
       return <div>
-              <img className='cart-img' src={gallery[currImg]}/>
+              <img className='cart-img' src={gallery[currImg]} alt={product.name}/>
               
               {gallery.length > 1 && <img src={arrowLeft} alt='PreviousImage' className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
               {gallery.length > 1 && <img src={arrowRight} alt='NextImage' className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}

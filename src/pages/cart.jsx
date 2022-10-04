@@ -30,7 +30,6 @@ class CartPage extends PureComponent {
             product.cartId = product.cartId+attr.name+product[attr.name]
           })
         cart[index] = product
-        console.log('name: '+name+' value: '+value+' index: '+index);
         this.props.updateCart(cart);
       }
 
@@ -87,7 +86,7 @@ class CartPage extends PureComponent {
                 <h1 className='cart-qty'>{product.quantity}</h1>
                 <img src={minus} alt='minus' className='qty-button' onClick={() => changeQty(product, -1)}/>
             </div>
-            <CartGallery gallery={product.gallery}/>
+            <CartGallery gallery={product.gallery} product={product}/>
         </div>
         </div>
     ))}

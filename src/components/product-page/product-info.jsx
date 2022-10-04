@@ -24,7 +24,7 @@ render(){
                 >{attr.name}:</h1>
                 { attr.type === "swatch"
                 ? attr.items.map((item, idx) => (
-                <div>
+                <div key={index+attr.name + item.value}>
                 <input type="radio" 
                     name={attr.name} 
                     value={idx} 
@@ -39,7 +39,8 @@ render(){
                     for={index+attr.name + item.value}></label>
                     </div>
                 )) 
-                : attr.items.map((item, idx) => (<div>
+                : attr.items.map((item, idx) => (
+                <div key={index+attr.name + item.value}>
                 <input type="radio" 
                     name={attr.name} 
                     value={idx} 

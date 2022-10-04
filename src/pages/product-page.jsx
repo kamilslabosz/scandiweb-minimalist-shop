@@ -55,7 +55,7 @@ class ProductPage extends PureComponent {
     {gallery.map((image, index) => (
         <img 
         src={image}
-        alt='Photo-of-product'
+        alt='product'
         key={image}
         className='img-small'
         onClick={() => this.setState({currImg: index})}
@@ -64,6 +64,7 @@ class ProductPage extends PureComponent {
     </div>
     <img 
     src={gallery[currImg]}
+    alt='product'
     className='product-current-img'
     />
     <ProductInfo 

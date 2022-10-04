@@ -26,7 +26,6 @@ class MiniCart extends PureComponent {
             product.cartId = product.cartId+attr.name+product[attr.name]
           })
         cart[index] = product
-        console.log('name: '+name+' value: '+value+' index: '+index);
         this.props.updateCart(cart);
       }
 
@@ -71,12 +70,12 @@ class MiniCart extends PureComponent {
         <h1 className='mini-cart-name'>{product.name}</h1>
         <h1 className='mini-cart-price'>{currencySymbol}{product.prices[currencyIdx].amount}</h1>
         {product.attributes.map((attr) =>
-          <div onChange={(e) => this.handleChange(e, index)}>
+          <div onChange={(e) => this.handleChange(e, index)} key={attr.name+index}>
             <h1 className='mini-attr-name'>{attr.name}:</h1>
             <form className='row'>
             { attr.type === "swatch"
             ? attr.items.map((item, idx) => (
-            <div>
+            <div key={index+attr.name + item.value}>
             <input type="radio" 
                 name={attr.name} 
                 value={idx} 
@@ -91,7 +90,8 @@ class MiniCart extends PureComponent {
                 for={index+attr.name + item.value}></label>
                 </div>
             )) 
-            : attr.items.map((item, idx) => (<div>
+            : attr.items.map((item, idx) => (
+            <div key={index+attr.name + item.value}>
             <input type="radio" 
                 name={attr.name} 
                 value={idx} 

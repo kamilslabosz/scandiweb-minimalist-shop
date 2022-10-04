@@ -23,6 +23,7 @@ class Actions extends PureComponent {
           renderMini: false,
         }
         this.currBox = React.createRef();
+        this.buttonRef = React.createRef();
         this.renderChange = this.renderChange.bind(this)
         this.miniRenderChange = this.miniRenderChange.bind(this)
       }
@@ -55,7 +56,8 @@ class Actions extends PureComponent {
 
       handleClickOutside = (e) => {
         if (this.currBox.current &&
-          !this.currBox.current.contains(e.target)){
+          !this.currBox.current.contains(e.target) &&
+          !this.buttonRef.current.contains(e.target)){
             this.renderChange();
           }
       }    
@@ -66,13 +68,15 @@ class Actions extends PureComponent {
       const { renderMini, renderCurrBox } = this.state
 
     return <div className='actions'>
-        <p className='action-item' onClick={this.renderChange}>{currencySymbol}</p>
-        <img
-        src={renderCurrBox
-            ? vectorUp
-            : vector}
-        alt='arrow-down'
-        className='currency-vector'/>
+        <div className='flex' onClick={this.renderChange} ref={this.buttonRef}>
+          <p className='action-item'>{currencySymbol}</p>
+          <img
+          src={renderCurrBox
+              ? vectorUp
+              : vector}
+          alt='Currency-box-toggle'
+          className='currency-vector'/>
+        </div>
         {renderCurrBox &&
         <div className='currency-box' onChange={(e) => this.handleChange(e)} ref={this.currBox}>
             <Query
@@ -104,7 +108,7 @@ class Actions extends PureComponent {
             </div>}
             
             <img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
-            {itemsInCart != 0 && <div className='cart-items'>
+            {itemsInCart !== 0 && <div className='cart-items' onClick={this.miniRenderChange}>
               <p className='cart-num'>{itemsInCart}</p>
             </div>}
            {renderMini && <MiniCart
