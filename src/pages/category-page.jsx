@@ -49,15 +49,28 @@ class CategoryPage extends PureComponent {
       {({ data }) => {
         if (data === undefined) return null;
 
-        return data.category.products.filter(product => product.category === params.name).map((product) => (
-          <ProductCard 
-          currencyIdx={currencyIdx} 
-          currencySymbol={currencySymbol} 
-          product={product} 
-          key={product.id} 
-          quickAddToCart={quickAddToCart}
-          />
-        ))
+        if (params.name === 'all'){
+          return data.category.products.map((product) => (
+            <ProductCard 
+            currencyIdx={currencyIdx} 
+            currencySymbol={currencySymbol} 
+            product={product} 
+            key={product.id} 
+            quickAddToCart={quickAddToCart}
+            />
+          ))
+        } else {
+          return data.category.products.filter(product => product.category === params.name).map((product) => (
+            <ProductCard 
+            currencyIdx={currencyIdx} 
+            currencySymbol={currencySymbol} 
+            product={product} 
+            key={product.id} 
+            quickAddToCart={quickAddToCart}
+            />
+          ))
+        }
+        
       }}
     </Query>
 </div>

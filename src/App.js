@@ -6,7 +6,7 @@ import MainPage from './pages/main-page';
 import CategoryPage from './pages/category-page';
 import ProductQuery from './components/product-page/product-query';
 import CartPage from './pages/cart';
-
+import NotFound from './pages/error';
 
 
 class App extends PureComponent {
@@ -129,6 +129,9 @@ class App extends PureComponent {
         cart={this.state.cart} 
         itemsInCart={this.state.itemsInCart}/>
       <Routes>
+        <Route path='*' 
+          element={<NotFound
+            renderOverlay={this.state.renderOverlay}/>}/>
         <Route path='/' 
           element={<MainPage 
             renderOverlay={this.state.renderOverlay}

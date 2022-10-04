@@ -21,12 +21,7 @@ class Header extends PureComponent {
 
   goToCat(e, category){
     e.preventDefault()
-    this.props.changeCategory(category)
-    if (category === 'all') {
-      this.props.navigate('/')
-    }else{
-      this.props.navigate('/category/'+category)
-    }
+    this.props.navigate('/category/'+category)
   }
 
     render(){
@@ -45,9 +40,7 @@ class Header extends PureComponent {
                       ? "category chosen-cat-div"
                       : "category"} 
                       key={name}
-                      href={name === 'all'
-                      ? '/'
-                      : '/category/'+name}
+                      href={'/category/'+name}
                       onClick={(e) => this.goToCat(e, name)}>
                         <h1 
                         className={name === currCategory
