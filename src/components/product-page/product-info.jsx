@@ -5,6 +5,10 @@ class ProductInfo extends PureComponent {
 
     toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
 
+    componentDidMount(){
+        document.getElementById("product-descriptcion").innerHTML = this.props.product.description;
+    }
+
 render(){
 
     const { name, inStock, description, attributes, brand, prices } = this.props.product
@@ -14,7 +18,7 @@ render(){
             <h1 className='brand-name'>{brand}</h1>
             <p className='product-page-name' 
             onClick={productPage ? null : this.toProductPage}>{name}</p>
-            {productPage === false && <h1 className='product-page-price product-cart-price'>{currencySymbol}{prices[currencyIdx].amount}</h1>}
+            {productPage === false && <h1 className='product-page-price product-cart-price'>{currencySymbol}{prices[currencyIdx].amount.toFixed(2)}</h1>}
             <form>
             {attributes.map((attr) => (
                 <div className='attr-flex-box' onChange={(e) => handleChange(e, index)}>
@@ -53,14 +57,14 @@ render(){
                 </div>
             ))}
             {productPage && <p className='product-price-tag'>Price:</p>}
-            {productPage && <h1 className='product-page-price'>{currencySymbol}{prices[currencyIdx].amount}</h1>}
+            {productPage && <h1 className='product-page-price'>{currencySymbol}{prices[currencyIdx].amount.toFixed(2)}</h1>}
             {productPage && 
             (inStock
             ? <button type='submit' onClick={handleSubmit}>ADD TO CART</button>
             : <button className='grayed-bg' disabled>OUT OF STOCK</button>)
             }
             </form>
-            {productPage && <div className='product-descriptcion' dangerouslySetInnerHTML={{__html: description}}></div>}
+            {productPage && <div id='product-descriptcion'></div>}
         </div>
     }
 }

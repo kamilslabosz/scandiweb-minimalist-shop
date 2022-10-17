@@ -9,24 +9,8 @@ class MiniCart extends PureComponent {
         this.state = {
           total: 0,
         }
-        this.handleChange = this.handleChange.bind(this);
         this.updateSummary = this.updateSummary.bind(this);
         this.goToCart = this.goToCart.bind(this);
-      }
-
-      handleChange(e, index) {
-        const { value, name } = e.target
-        let cart = [...this.props.cart]
-        let product = {
-            ...cart[index],
-            [name]: value,
-            cartId: cart[index].id,
-        }
-        product.attributes.forEach(attr => {
-            product.cartId = product.cartId+attr.name+product[attr.name]
-          })
-        cart[index] = product
-        this.props.updateCart(cart);
       }
 
       updateSummary() { 
@@ -34,7 +18,7 @@ class MiniCart extends PureComponent {
             item.quantity * item.prices[this.props.currencyIdx].amount
         )).reduce((a, b) => a + b, 0)
         this.setState({
-            total: (Math.round(newTotal * 100) / 100)
+            total: (Math.round(newTotal * 100) / 100).toFixed(2)
         })
       }
 
@@ -70,7 +54,7 @@ class MiniCart extends PureComponent {
         <h1 className='mini-cart-name'>{product.name}</h1>
         <h1 className='mini-cart-price'>{currencySymbol}{product.prices[currencyIdx].amount}</h1>
         {product.attributes.map((attr) =>
-          <div onChange={(e) => this.handleChange(e, index)} key={attr.name+index}>
+          <div>
             <h1 className='mini-attr-name'>{attr.name}:</h1>
             <form className='row'>
             { attr.type === "swatch"

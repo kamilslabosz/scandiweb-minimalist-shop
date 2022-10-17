@@ -21,6 +21,7 @@ class Header extends PureComponent {
 
   goToCat(e, category){
     e.preventDefault()
+    this.props.changeCategory(category)
     this.props.navigate('/category/'+category)
   }
 

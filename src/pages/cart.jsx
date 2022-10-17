@@ -14,23 +14,7 @@ class CartPage extends PureComponent {
           total: 0,
 
         }
-        this.handleChange = this.handleChange.bind(this);
         this.updateSummary = this.updateSummary.bind(this);
-      }
-
-      handleChange(e, index) {
-        const { value, name } = e.target
-        let cart = [...this.props.cart]
-        let product = {
-            ...cart[index],
-            [name]: value,
-            cartId: cart[index].id,
-        }
-        product.attributes.forEach(attr => {
-            product.cartId = product.cartId+attr.name+product[attr.name]
-          })
-        cart[index] = product
-        this.props.updateCart(cart);
       }
 
       updateSummary() { 
@@ -42,9 +26,9 @@ class CartPage extends PureComponent {
         )).reduce((a, b) => a + b, 0)
         const newTax = newTotal * 0.21
         this.setState({
-            tax: (Math.round(newTax * 100) / 100),
+            tax: (Math.round(newTax * 100) / 100).toFixed(2),
             quantity: (Math.round(newQty * 100) / 100),
-            total: (Math.round(newTotal * 100) / 100)
+            total: (Math.round(newTotal * 100) / 100).toFixed(2)
         })
       }
 
@@ -76,7 +60,7 @@ class CartPage extends PureComponent {
         product={product}
         newItem={product}
         index={index}
-        handleChange={this.handleChange}
+        handleChange={null}
         handleSubmit={null}
         productPage={false}
         />

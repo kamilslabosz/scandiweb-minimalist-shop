@@ -58,7 +58,7 @@ class ProductCard extends PureComponent{
             <p 
             onClick={this.toProductPage}
             className={inStock ? "product-price" : "product-price grayed"}>
-                {currencySymbol}{prices[currencyIdx].amount}
+                {currencySymbol}{prices[currencyIdx].amount.toFixed(2)}
             </p>
             
         </a>
