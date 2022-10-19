@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from '../../utils/hoc';
 import plus from '../../images/svg/plus.svg'
 import minus from '../../images/svg/minus.svg'
@@ -41,7 +41,7 @@ class MiniCart extends PureComponent {
       const { cart, itemsInCart, currencySymbol, currencyIdx, changeQty } = this.props
       const { total } = this.state
 
-    return <div className='mini-cart-box'>
+    return <div>
     <div className='row'>
     <h1 className='mini-cart-bold'>My Bag</h1>
     <h1 className='mini-cart-header'>, {itemsInCart} item{itemsInCart!==1 && 's'}</h1>
@@ -118,5 +118,5 @@ class MiniCart extends PureComponent {
     }
 }
 
-export default withRouter(MiniCart);
+export default withRouter(MiniCart) 
 

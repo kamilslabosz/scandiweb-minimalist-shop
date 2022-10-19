@@ -23,7 +23,9 @@ class Actions extends PureComponent {
           renderMini: false,
         }
         this.currBox = React.createRef();
-        this.buttonRef = React.createRef();
+        this.currButtonRef = React.createRef();
+        this.miniCartBox = React.createRef();
+        this.cartButton = React.createRef();
         this.renderChange = this.renderChange.bind(this)
         this.miniRenderChange = this.miniRenderChange.bind(this)
       }
@@ -34,9 +36,9 @@ class Actions extends PureComponent {
             renderCurrBox: check ? false: true
         })
         if (check) {
-          document.removeEventListener("mousedown", this.handleClickOutside);
+          document.removeEventListener("mousedown", this.handleClickOutsideCurr);
         } else {
-          document.addEventListener("mousedown", this.handleClickOutside);
+          document.addEventListener("mousedown", this.handleClickOutsideCurr);
         }
       }
 
@@ -46,6 +48,11 @@ class Actions extends PureComponent {
         this.setState({
             renderMini: check ? false: true
         })
+        if (check) {
+          document.removeEventListener("mousedown", this.handleClickOutsideCart);
+        } else {
+          document.addEventListener("mousedown", this.handleClickOutsideCart);
+        }
       }
 
       handleChange(e) {
@@ -54,13 +61,24 @@ class Actions extends PureComponent {
         this.renderChange()
       }
 
-      handleClickOutside = (e) => {
+      handleClickOutsideCurr = (e) => {
         if (this.currBox.current &&
           !this.currBox.current.contains(e.target) &&
-          !this.buttonRef.current.contains(e.target)){
+          !this.currButtonRef.current.contains(e.target)){
             this.renderChange();
           }
-      }    
+      }
+      
+      handleClickOutsideCart = (e) => {
+        console.log(e.target);
+        console.log(this.cartButton.current.contains(e.target));
+        console.log(this.miniCartBox.current.contains(e.target));
+        if (this.miniCartBox.current &&
+          !this.miniCartBox.current.contains(e.target) &&
+          !this.cartButton.current.contains(e.target)){
+            this.miniRenderChange();
+          }
+      }  
 
     render(){
 
@@ -68,7 +86,7 @@ class Actions extends PureComponent {
       const { renderMini, renderCurrBox } = this.state
 
     return <div className='actions'>
-        <div className='flex' onClick={this.renderChange} ref={this.buttonRef}>
+        <div className='flex' onClick={this.renderChange} ref={this.currButtonRef}>
           <p className='action-item'>{currencySymbol}</p>
           <img
           src={renderCurrBox
@@ -107,19 +125,23 @@ class Actions extends PureComponent {
             </Query>
             </div>}
             
-            <img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
+            <div ref={this.cartButton}><img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
             {itemsInCart !== 0 && <div className='cart-items' onClick={this.miniRenderChange}>
               <p className='cart-num'>{itemsInCart}</p>
-            </div>}
-           {renderMini && <MiniCart
-           miniRenderChange={this.miniRenderChange} 
-           cart={this.props.cart} 
-           currencyIdx={this.props.currencyIdx} 
-           currencySymbol={this.props.currencySymbol}
-           updateCart={this.props.updateCart}
-           itemsInCart={this.props.itemsInCart} 
-           changeQty={this.props.changeQty}/>}
-        </div>
+            </div>}</div>
+           {renderMini && <div 
+              className='mini-cart-box'
+              ref={this.miniCartBox}>
+                <MiniCart
+                  setref={this.miniCartBox}
+                  miniRenderChange={this.miniRenderChange} 
+                  cart={this.props.cart} 
+                  currencyIdx={this.props.currencyIdx} 
+                  currencySymbol={this.props.currencySymbol}
+                  updateCart={this.props.updateCart}
+                  itemsInCart={this.props.itemsInCart} 
+                  changeQty={this.props.changeQty}/></div>}
+                </div>
     }
 }
 
