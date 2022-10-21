@@ -125,7 +125,7 @@ class Actions extends PureComponent {
             </Query>
             </div>}
             
-            <div ref={this.cartButton}><img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
+            <div ref={this.cartButton} className='flex'><img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
             {itemsInCart !== 0 && <div className='cart-items' onClick={this.miniRenderChange}>
               <p className='cart-num'>{itemsInCart}</p>
             </div>}</div>

@@ -43,7 +43,7 @@ class ProductPage extends PureComponent {
 
   render() {
 
-  const { gallery } = this.props.data.product
+  const { gallery, inStock } = this.props.data.product
   const { renderOverlay } = this.props
   const { currImg } = this.state
 
@@ -62,11 +62,14 @@ class ProductPage extends PureComponent {
         />
     ))}
     </div>
+    <div className='flex'>
     <img 
     src={gallery[currImg]}
     alt='product'
-    className='product-current-img'
+    className={inStock ? 'product-current-img' : "product-current-img img-grayed"}
     />
+    {inStock ? null : <h1 className='out-of-stock'>OUT OF STOCK</h1>}
+    </div>
     <ProductInfo 
       currencyIdx={this.props.currencyIdx} 
       currencySymbol={this.props.currencySymbol} 
