@@ -54,7 +54,7 @@ class MiniCart extends PureComponent {
         <h1 className='mini-cart-name'>{product.name}</h1>
         <h1 className='mini-cart-price'>{currencySymbol}{product.prices[currencyIdx].amount}</h1>
         {product.attributes.map((attr) =>
-          <div>
+          <div key={attr.name+product}>
             <h1 className='mini-attr-name'>{attr.name}:</h1>
             <form className='row'>
             { attr.type === "swatch"
@@ -64,14 +64,15 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                checked={product[attr.name] == idx}
+                defaultChecked={product[attr.name] == idx}
+                disabled
             ></input>
             <label 
             className={item.value === '#FFFFFF' 
                 ? 'mini-attr-white'
                 : 'mini-attr-color'} 
                 style={{background: item.value}} 
-                for={index+attr.name + item.value}></label>
+                htmlFor={index+attr.name + item.value}></label>
                 </div>
             )) 
             : attr.items.map((item, idx) => (
@@ -80,13 +81,14 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                checked={product[attr.name] == idx}
+                defaultChecked={product[attr.name] == idx}
+                disabled
             ></input>
             <label 
             className={attr.name === 'Capacity'
               ? 'attr-value mini-cart-attr mini-attr-wider'
               : 'attr-value mini-cart-attr'} 
-            for={index+attr.name + item.value}>{item.value}</label>
+            htmlFor={index+attr.name + item.value}>{item.value}</label>
             </div>))
             }
             </form>

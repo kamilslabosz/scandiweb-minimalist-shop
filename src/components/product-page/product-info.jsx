@@ -6,12 +6,15 @@ class ProductInfo extends PureComponent {
     toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
 
     componentDidMount(){
-        document.getElementById("product-descriptcion").innerHTML = this.props.product.description;
+        if (this.props.productPage){
+            this.props.onMount(this.props.product)
+            document.getElementById("product-description").innerHTML = this.props.product.description;
+        }
     }
 
 render(){
 
-    const { name, inStock, description, attributes, brand, prices } = this.props.product
+    const { name, inStock, attributes, brand, prices } = this.props.product
     const { currencySymbol, currencyIdx, index, productPage, newItem, handleChange, handleSubmit } = this.props
 
     return <div className='product-info'>
@@ -21,7 +24,10 @@ render(){
             {productPage === false && <h1 className='product-page-price product-cart-price'>{currencySymbol}{prices[currencyIdx].amount.toFixed(2)}</h1>}
             <form>
             {attributes.map((attr) => (
-                <div className='attr-flex-box' onChange={(e) => handleChange(e, index)}>
+                <div 
+                    className='attr-flex-box' 
+                    key={attr.name}
+                    onChange={(e) => handleChange(e, index)}>
                 <h1 
                 key={attr.id}
                 className='attr-name'
@@ -33,14 +39,15 @@ render(){
                     name={attr.name} 
                     value={idx} 
                     id={index+attr.name + item.value}
-                    checked={newItem[attr.name] == idx}
+                    defaultChecked={newItem[attr.name] === idx}
+                    disabled = {productPage ? false : true}
                 ></input>
                 <label 
                 className={item.value === '#FFFFFF' 
                     ? 'attr-color-white'
                     : 'attr-color'} 
                     style={{background: item.value}} 
-                    for={index+attr.name + item.value}></label>
+                    htmlFor={index+attr.name + item.value}></label>
                     </div>
                 )) 
                 : attr.items.map((item, idx) => (
@@ -49,9 +56,10 @@ render(){
                     name={attr.name} 
                     value={idx} 
                     id={index+attr.name + item.value}
-                    checked={newItem[attr.name] == idx}
+                    defaultChecked={newItem[attr.name] === idx}
+                    disabled = {productPage ? false : true}
                 ></input>
-                <label className='attr-value' for={index+attr.name + item.value}>{item.value}</label>
+                <label className='attr-value' htmlFor={index+attr.name + item.value}>{item.value}</label>
                 </div>))
                 }
                 </div>
@@ -64,7 +72,7 @@ render(){
             : <button className='grayed-bg' disabled>OUT OF STOCK</button>)
             }
             </form>
-            {productPage && <div id='product-descriptcion'></div>}
+            {productPage && <div id='product-description'></div>}
         </div>
     }
 }

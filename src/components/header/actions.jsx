@@ -70,9 +70,6 @@ class Actions extends PureComponent {
       }
       
       handleClickOutsideCart = (e) => {
-        console.log(e.target);
-        console.log(this.cartButton.current.contains(e.target));
-        console.log(this.miniCartBox.current.contains(e.target));
         if (this.miniCartBox.current &&
           !this.miniCartBox.current.contains(e.target) &&
           !this.cartButton.current.contains(e.target)){
@@ -113,11 +110,11 @@ class Actions extends PureComponent {
                     name={currency.symbol}
                     value={index}
                     id={currency.label}
-                    checked={currencyIdx == index}
+                   defaultChecked={currencyIdx == index}
                     ></input>
                     <label
                     className='currency-label'
-                    for={currency.label}
+                    htmlFor={currency.label}
                     >{currency.symbol} {currency.label}</label>
                 </div>
                 ))

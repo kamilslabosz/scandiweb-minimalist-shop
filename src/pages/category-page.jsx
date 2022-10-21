@@ -5,8 +5,9 @@ import { withRouter } from '../utils/hoc';
 import ProductCard from '../components/main_page/product-card';
 
 const GET_PRODUCTS = gql`
-  query GetProducts {
-    category{
+  query GetProducts($input: CategoryInput) {
+    category(input: $input) {
+    	name
       products{
         id
         name
@@ -45,33 +46,22 @@ class CategoryPage extends PureComponent {
     <h1 className='cat-name'>{params.name}</h1>
     <Query
     query={GET_PRODUCTS}
+    variables={{input: {title: this.props.params.name}}}
     fetchPolicy='network-only'>
       {({ data }) => {
         if (data === undefined) return null;
-
-        if (params.name === 'all'){
-          return data.category.products.map((product) => (
-            <ProductCard 
-            currencyIdx={currencyIdx} 
-            currencySymbol={currencySymbol} 
-            product={product} 
-            key={product.id} 
-            quickAddToCart={quickAddToCart}
-            />
-          ))
-        } else {
-          return data.category.products.filter(product => product.category === params.name).map((product) => (
-            <ProductCard 
-            currencyIdx={currencyIdx} 
-            currencySymbol={currencySymbol} 
-            product={product} 
-            key={product.id} 
-            quickAddToCart={quickAddToCart}
-            />
-          ))
-        }
         
-      }}
+        return data.category.products.map((product) => (
+          <ProductCard 
+          currencyIdx={currencyIdx} 
+          currencySymbol={currencySymbol} 
+          product={product} 
+          key={product.id} 
+          quickAddToCart={quickAddToCart}
+          />
+        ))
+        }
+      }
     </Query>
 </div>
   

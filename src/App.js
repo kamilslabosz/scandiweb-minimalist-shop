@@ -4,9 +4,9 @@ import './App.css';
 import Header from './components/header/header';
 import MainPage from './pages/main-page';
 import CategoryPage from './pages/category-page';
-import ProductQuery from './components/product-page/product-query';
 import CartPage from './pages/cart';
 import NotFound from './pages/error';
+import ProductPage from './pages/product-page';
 
 
 class App extends PureComponent {
@@ -139,7 +139,7 @@ class App extends PureComponent {
             currencyIdx={this.state.currencyIdx} 
             quickAddToCart={this.quickAddToCart}/>} />
         <Route path='/product/:id' 
-          element={<ProductQuery 
+          element={<ProductPage 
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 
             currencyIdx={this.state.currencyIdx} 
