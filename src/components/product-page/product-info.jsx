@@ -1,9 +1,10 @@
 import { PureComponent } from 'react';
 import { withRouter } from '../../utils/hoc';
+import { productBaseRoute } from '../../utils/routes';
 
 class ProductInfo extends PureComponent {
 
-    toProductPage = () => this.props.navigate('/product/'+this.props.product.id)
+    toProductPage = () => this.props.navigate(productBaseRoute+this.props.product.id)
 
     componentDidMount(){
         if (this.props.productPage){
@@ -56,7 +57,7 @@ render(){
                     name={attr.name} 
                     value={idx} 
                     id={index+attr.name + item.value}
-                    defaultChecked={newItem[attr.name] === idx}
+                    defaultChecked={idx === 0 || newItem[attr.name] === idx}
                     disabled = {productPage ? false : true}
                 ></input>
                 <label className='attr-value' htmlFor={index+attr.name + item.value}>{item.value}</label>

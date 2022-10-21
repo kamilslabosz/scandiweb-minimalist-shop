@@ -7,6 +7,7 @@ import CategoryPage from './pages/category-page';
 import CartPage from './pages/cart';
 import NotFound from './pages/error';
 import ProductPage from './pages/product-page';
+import { cartRoute, categoryBaseRoute, homeRoute, productBaseRoute } from './utils/routes';
 
 
 class App extends PureComponent {
@@ -132,26 +133,26 @@ class App extends PureComponent {
         <Route path='*' 
           element={<NotFound
             renderOverlay={this.state.renderOverlay}/>}/>
-        <Route path='/' 
+        <Route path={homeRoute} 
           element={<MainPage 
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 
             currencyIdx={this.state.currencyIdx} 
             quickAddToCart={this.quickAddToCart}/>} />
-        <Route path='/product/:id' 
+        <Route path={productBaseRoute+':id'} 
           element={<ProductPage 
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 
             currencyIdx={this.state.currencyIdx} 
             addToCart={this.addToCart} />} />
-        <Route path='/category/:name' 
+        <Route path={categoryBaseRoute+':name'} 
           element={<CategoryPage
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 
             currencyIdx={this.state.currencyIdx} 
             quickAddToCart={this.quickAddToCart} 
             changeCategory={this.changeCategory}/>} />
-        <Route path='/cart' 
+        <Route path={cartRoute} 
           element={<CartPage 
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 

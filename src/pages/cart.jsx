@@ -4,6 +4,8 @@ import { withRouter } from '../utils/hoc';
 import minus from '../images/svg/minus.svg'
 import plus from '../images/svg/plus.svg'
 import CartGallery from '../components/cart/cart-gallery';
+import { cartHeaderInner, emptyCartInner, orderInner, qtyInner, taxInner, totalInner } from '../utils/innerHtml';
+import { qtyDown, qtyUp } from '../utils/alts';
 
 class CartPage extends PureComponent {
     constructor(props) {
@@ -48,10 +50,10 @@ class CartPage extends PureComponent {
       return <div>
       <div className='cat-main'>
       {renderOverlay && <div className='dim-overlay'/>}
-      <h1 className='cat-name'>Cart</h1>
+      <h1 className='cat-name'>{cartHeaderInner}</h1>
     </div>
     <div className='cart-all'>
-        {cart.length === 0 && <h1>Cart is empty</h1>}
+        {cart.length === 0 && <h1>{emptyCartInner}</h1>}
     {cart.map((product, index) => (
         <div className='cart-product' key={index}>
         <ProductInfo 
@@ -66,9 +68,9 @@ class CartPage extends PureComponent {
         />
         <div className='flex'>
             <div className='qty-box'>
-                <img src={plus} alt='plus' className='qty-button' onClick={() => changeQty(product, 1)}/>
+                <img src={plus} alt={qtyUp} className='qty-button' onClick={() => changeQty(product, 1)}/>
                 <h1 className='cart-qty'>{product.quantity}</h1>
-                <img src={minus} alt='minus' className='qty-button' onClick={() => changeQty(product, -1)}/>
+                <img src={minus} alt={qtyDown} className='qty-button' onClick={() => changeQty(product, -1)}/>
             </div>
             <CartGallery gallery={product.gallery} product={product}/>
         </div>
@@ -77,16 +79,16 @@ class CartPage extends PureComponent {
     <hr />
     <div className='cart-summary'>
         <div>
-            <h1 className='sum-label'>Tax 21%:</h1>
-            <h1 className='sum-label'>Quantity:</h1>
-            <h1 className='sum-label'>Total:</h1>
+            <h1 className='sum-label'>{taxInner}</h1>
+            <h1 className='sum-label'>{qtyInner}</h1>
+            <h1 className='sum-label'>{totalInner}</h1>
         </div>
         <div>
             <h1 className='sum-value'>{currencySymbol}{tax}</h1>
             <h1 className='sum-value'>{quantity}</h1>
             <h1 className='sum-value'>{currencySymbol}{total}</h1>
         </div>
-        <button type='submit' disabled>ORDER</button>
+        <button type='submit' disabled>{orderInner}</button>
     </div>
     </div>
     </div>

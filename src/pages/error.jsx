@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import { error404, errorHeaderInner } from '../utils/innerHtml';
 
 
 class NotFound extends PureComponent{
@@ -9,8 +10,8 @@ render(){
 
     return <div className='cat-main space-at-end'>
           {renderOverlay && <div className='dim-overlay'/>}
-        <h1 className='cat-name'>Error</h1>
-        <h1 className='cat-name'>Page not found</h1>
+        <h1 className='cat-name'>{errorHeaderInner}</h1>
+        <h1 className='cat-name'>{error404}</h1>
     </div>
     
     }

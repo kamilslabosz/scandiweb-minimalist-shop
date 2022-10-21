@@ -4,6 +4,8 @@ import { Query } from '@apollo/client/react/components'
 import logo from '../../images/svg/logo.svg'
 import Actions from './actions';
 import { withRouter } from '../../utils/hoc';
+import { categoryBaseRoute } from '../../utils/routes';
+import { logoAlt } from '../../utils/alts';
 
 const GET_CATEGORIES = gql`
   query GetCategories {
@@ -22,7 +24,7 @@ class Header extends PureComponent {
   goToCat(e, category){
     e.preventDefault()
     this.props.changeCategory(category)
-    this.props.navigate('/category/'+category)
+    this.props.navigate(categoryBaseRoute+category)
   }
 
     render(){
@@ -41,7 +43,7 @@ class Header extends PureComponent {
                       ? "category chosen-cat-div"
                       : "category"} 
                       key={name}
-                      href={'/category/'+name}
+                      href={categoryBaseRoute+name}
                       onClick={(e) => this.goToCat(e, name)}>
                         <h1 
                         className={name === currCategory
@@ -55,7 +57,7 @@ class Header extends PureComponent {
                 </nav>
               </div>
               <div className='brand-icon'>
-                <img src={logo} id='logo'  alt='logo'/>
+                <img src={logo} id='logo'  alt={logoAlt}/>
               </div>
               <Actions 
               changeRenderOverlay={this.props.changeRenderOverlay}

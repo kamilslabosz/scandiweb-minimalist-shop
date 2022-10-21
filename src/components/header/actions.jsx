@@ -5,6 +5,7 @@ import cartImg from '../../images/svg/cart.svg'
 import vector from '../../images/svg/vector.svg'
 import vectorUp from '../../images/svg/vectorUp.svg'
 import MiniCart from './mini-cart';
+import { cartAlt, currBoxAlt } from '../../utils/alts';
 
 const GET_CURRENCIES = gql`
   query GetCurrencies {
@@ -89,7 +90,7 @@ class Actions extends PureComponent {
           src={renderCurrBox
               ? vectorUp
               : vector}
-          alt='Currency-box-toggle'
+          alt={currBoxAlt}
           className='currency-vector'/>
         </div>
         {renderCurrBox &&
@@ -122,7 +123,7 @@ class Actions extends PureComponent {
             </Query>
             </div>}
             
-            <div ref={this.cartButton} className='flex'><img src={cartImg} id='cart' alt='cart' className='action-item' onClick={this.miniRenderChange}/>
+            <div ref={this.cartButton} className='flex'><img src={cartImg} id='cart' alt={cartAlt} className='action-item' onClick={this.miniRenderChange}/>
             {itemsInCart !== 0 && <div className='cart-items' onClick={this.miniRenderChange}>
               <p className='cart-num'>{itemsInCart}</p>
             </div>}</div>

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components'
 import ProductCard from '../components/main_page/product-card';
+import { mainPageHeader } from '../utils/innerHtml';
 
 const GET_PRODUCTS = gql`
   query GetProducts {
@@ -38,7 +39,7 @@ render(){
 
     return <div className='cat-main space-at-end'>
           {renderOverlay && <div className='dim-overlay'/>}
-        <h1 className='cat-name'>all</h1>
+        <h1 className='cat-name'>{mainPageHeader}</h1>
         <Query
         query={GET_PRODUCTS}
         fetchPolicy='network-only'>

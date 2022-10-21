@@ -3,6 +3,7 @@ import { Query } from '@apollo/client/react/components';
 import { PureComponent } from 'react';
 import { withRouter } from '../utils/hoc'
 import ProductInfo from '../components/product-page/product-info';
+import { outOfStockInner } from '../utils/innerHtml';
 
 const GET_PRODUCT = gql`
   query GetProduct($id: String!) {
@@ -93,7 +94,7 @@ class ProductPage extends PureComponent {
           {data.product.gallery.map((image, index) => (
               <img 
               src={image}
-              alt='product'
+              alt={data.product.name}
               key={image}
               className='img-small'
               onClick={() => this.setState({currImg: index})}
@@ -103,10 +104,10 @@ class ProductPage extends PureComponent {
           <div className='flex'>
           <img 
           src={data.product.gallery[currImg]}
-          alt='product'
+          alt={data.product.name}
           className={data.product.inStock ? 'product-current-img' : "product-current-img img-grayed"}
           />
-          {data.product.inStock ? null : <h1 className='out-of-stock'>OUT OF STOCK</h1>}
+          {data.product.inStock ? null : <h1 className='out-of-stock'>{outOfStockInner}</h1>}
           </div>
           <ProductInfo 
             currencyIdx={this.props.currencyIdx} 

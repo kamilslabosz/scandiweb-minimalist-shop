@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import arrowLeft from '../../images/svg/arrowLeft.svg'
 import arrowRight from '../../images/svg/arrowRight.svg'
+import { nextImage, previousImage } from '../../utils/alts';
 
 class CartGallery extends PureComponent {
     constructor(props) {
@@ -39,8 +40,8 @@ class CartGallery extends PureComponent {
       return <div>
               <img className='cart-img' src={gallery[currImg]} alt={product.name}/>
               
-              {gallery.length > 1 && <img src={arrowLeft} alt='PreviousImage' className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
-              {gallery.length > 1 && <img src={arrowRight} alt='NextImage' className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}
+              {gallery.length > 1 && <img src={arrowLeft} alt={previousImage} className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
+              {gallery.length > 1 && <img src={arrowRight} alt={nextImage} className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}
             </div>
     
   
