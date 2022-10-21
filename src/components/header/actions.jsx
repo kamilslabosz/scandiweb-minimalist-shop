@@ -103,7 +103,7 @@ class Actions extends PureComponent {
                 return data.currencies.map((currency, index) => (
                 <div 
                 key={currency.label}
-                className={currencyIdx == index
+                className={currencyIdx === String(index)
                 ? 'currency-button currency-checked'
                 : 'currency-button'}>
                     <input 
@@ -111,7 +111,7 @@ class Actions extends PureComponent {
                     name={currency.symbol}
                     value={index}
                     id={currency.label}
-                   defaultChecked={currencyIdx == index}
+                   defaultChecked={currencyIdx === String(index)}
                     ></input>
                     <label
                     className='currency-label'

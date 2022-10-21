@@ -67,7 +67,7 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] == idx}
+                defaultChecked={product[attr.name] === String(idx)}
                 disabled
             ></input>
             <label 
@@ -84,7 +84,7 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] == idx}
+                defaultChecked={product[attr.name] === String(idx)}
                 disabled
             ></input>
             <label 

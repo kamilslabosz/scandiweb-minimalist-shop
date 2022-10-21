@@ -1,5 +1,6 @@
 import { PureComponent } from 'react';
 import { withRouter } from '../../utils/hoc';
+import { addToCartInner, outOfStockInner, priceInner } from '../../utils/innerHtml';
 import { productBaseRoute } from '../../utils/routes';
 
 class ProductInfo extends PureComponent {
@@ -40,7 +41,9 @@ render(){
                     name={attr.name} 
                     value={idx} 
                     id={index+attr.name + item.value}
-                    defaultChecked={newItem[attr.name] === idx}
+                    defaultChecked={productPage 
+                        ? idx === 0 || newItem[attr.name] === String(idx)
+                        : newItem[attr.name] === String(idx)}
                     disabled = {productPage ? false : true}
                 ></input>
                 <label 
@@ -57,7 +60,9 @@ render(){
                     name={attr.name} 
                     value={idx} 
                     id={index+attr.name + item.value}
-                    defaultChecked={idx === 0 || newItem[attr.name] === idx}
+                    defaultChecked={productPage 
+                        ? idx === 0 || newItem[attr.name] === String(idx)
+                        : newItem[attr.name] === String(idx)}
                     disabled = {productPage ? false : true}
                 ></input>
                 <label className='attr-value' htmlFor={index+attr.name + item.value}>{item.value}</label>
@@ -65,12 +70,12 @@ render(){
                 }
                 </div>
             ))}
-            {productPage && <p className='product-price-tag'>Price:</p>}
+            {productPage && <p className='product-price-tag'>{priceInner}</p>}
             {productPage && <h1 className='product-page-price'>{currencySymbol}{prices[currencyIdx].amount.toFixed(2)}</h1>}
             {productPage && 
             (inStock
-            ? <button type='submit' onClick={handleSubmit}>ADD TO CART</button>
-            : <button className='grayed-bg' disabled>OUT OF STOCK</button>)
+            ? <button type='submit' onClick={handleSubmit}>{addToCartInner}</button>
+            : <button className='grayed-bg' disabled>{outOfStockInner}</button>)
             }
             </form>
             {productPage && <div id='product-description'></div>}
