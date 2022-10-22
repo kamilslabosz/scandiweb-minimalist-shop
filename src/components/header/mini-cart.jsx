@@ -46,8 +46,8 @@ class MiniCart extends PureComponent {
 
     return <div>
     <div className='row'>
-    <h1 className='mini-cart-bold'>{miniCartHeader}</h1>
-    <h1 className='mini-cart-header'> {itemsInCart} {itemsInCart!==1 ? itemMultiple : itemSingle  }</h1>
+    <h1 className='mini-cart-bold'>{miniCartHeader} </h1>
+    <h1 className='mini-cart-header'>{itemsInCart} {itemsInCart!==1 ? itemMultiple : itemSingle  }</h1>
     </div>
     <div className='mini-cart-scroll'>
     {cart.map((product, index) => (
@@ -67,7 +67,7 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] === String(idx)}
+                defaultChecked={product[attr.name] === String(idx) || product[attr.name] === idx}
                 disabled
             ></input>
             <label 
@@ -84,7 +84,7 @@ class MiniCart extends PureComponent {
                 name={attr.name} 
                 value={idx} 
                 id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] === String(idx)}
+                defaultChecked={product[attr.name] === String(idx) || product[attr.name] === idx}
                 disabled
             ></input>
             <label 

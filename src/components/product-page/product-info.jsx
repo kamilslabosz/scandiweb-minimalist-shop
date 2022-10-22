@@ -43,7 +43,7 @@ render(){
                     id={index+attr.name + item.value}
                     defaultChecked={productPage 
                         ? idx === 0 || newItem[attr.name] === String(idx)
-                        : newItem[attr.name] === String(idx)}
+                        : newItem[attr.name] === String(idx) || newItem[attr.name] === idx}
                     disabled = {productPage ? false : true}
                 ></input>
                 <label 
@@ -62,7 +62,7 @@ render(){
                     id={index+attr.name + item.value}
                     defaultChecked={productPage 
                         ? idx === 0 || newItem[attr.name] === String(idx)
-                        : newItem[attr.name] === String(idx)}
+                        : newItem[attr.name] === String(idx) || newItem[attr.name] === idx}
                     disabled = {productPage ? false : true}
                 ></input>
                 <label className='attr-value' htmlFor={index+attr.name + item.value}>{item.value}</label>
