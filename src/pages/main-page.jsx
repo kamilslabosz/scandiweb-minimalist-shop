@@ -1,35 +1,8 @@
 import React, { PureComponent } from 'react';
-import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components'
 import ProductCard from '../components/main_page/product-card';
 import { mainPageHeader } from '../utils/innerHtml';
-
-const GET_PRODUCTS = gql`
-  query GetProducts {
-    category{
-      products{
-        id
-        name
-        inStock
-        gallery
-        category
-        brand
-        attributes{
-          name
-          type
-          items{
-            displayValue
-            value
-            id
-          }
-        }
-        prices{
-          amount
-        }
-      }
-    }
-  }
-`;
+import { GET_PRODUCTS_MAIN } from '../utils/queries'
 
 class MainPage extends PureComponent{
   
@@ -41,7 +14,7 @@ render(){
           {renderOverlay && <div className='dim-overlay'/>}
         <h1 className='cat-name'>{mainPageHeader}</h1>
         <Query
-        query={GET_PRODUCTS}
+        query={GET_PRODUCTS_MAIN}
         fetchPolicy='network-only'>
           {({ data }) => {
             if (data === undefined) return null;

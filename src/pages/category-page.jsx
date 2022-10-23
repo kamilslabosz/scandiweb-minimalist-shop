@@ -1,35 +1,8 @@
-import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import { PureComponent } from 'react';
 import { withRouter } from '../utils/hoc';
 import ProductCard from '../components/main_page/product-card';
-
-const GET_PRODUCTS = gql`
-  query GetProducts($input: CategoryInput) {
-    category(input: $input) {
-    	name
-      products{
-        id
-        name
-        inStock
-        gallery
-        category
-        brand
-        attributes{
-          name
-          type
-          items{
-            value
-            id
-          }
-        }
-        prices{
-          amount
-        }
-      }
-    }
-  }
-`;
+import { GET_PRODUCTS } from '../utils/queries'
 
 class CategoryPage extends PureComponent {
 

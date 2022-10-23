@@ -1,20 +1,11 @@
 import React, { PureComponent } from 'react';
-import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import cartImg from '../../images/svg/cart.svg'
 import vector from '../../images/svg/vector.svg'
 import vectorUp from '../../images/svg/vectorUp.svg'
 import MiniCart from './mini-cart';
 import { cartAlt, currBoxAlt } from '../../utils/alts';
-
-const GET_CURRENCIES = gql`
-  query GetCurrencies {
-    currencies{
-        label
-        symbol
-      }
-    }
-`;
+import { GET_CURRENCIES } from '../../utils/queries';
 
 class Actions extends PureComponent {
     constructor(props) {
@@ -83,7 +74,14 @@ class Actions extends PureComponent {
       const { itemsInCart, currencySymbol, currencyIdx } = this.props
       const { renderMini, renderCurrBox } = this.state
 
-    return <div className='actions'>
+    return (<Query
+    query={GET_CURRENCIES}>
+    {({ data }) => { 
+
+      if (data === undefined) return null;
+
+      return <div className='actions'>
+
         <div className='flex' onClick={this.renderChange} ref={this.currButtonRef}>
           <p className='action-item'>{currencySymbol}</p>
           <img
@@ -95,12 +93,8 @@ class Actions extends PureComponent {
         </div>
         {renderCurrBox &&
         <div className='currency-box' onChange={(e) => this.handleChange(e)} ref={this.currBox}>
-            <Query
-            query={GET_CURRENCIES}>
-            {({ data }) => {
-                if (data === undefined) return null;
-
-                return data.currencies.map((currency, index) => (
+            
+                {data.currencies.map((currency, index) => (
                 <div 
                 key={currency.label}
                 className={currencyIdx === String(index)
@@ -119,8 +113,8 @@ class Actions extends PureComponent {
                     >{currency.symbol} {currency.label}</label>
                 </div>
                 ))
-            }}
-            </Query>
+                }
+
             </div>}
             
             <div ref={this.cartButton} className='flex'><img src={cartImg} id='cart' alt={cartAlt} className='action-item' onClick={this.miniRenderChange}/>
@@ -140,7 +134,11 @@ class Actions extends PureComponent {
                   itemsInCart={this.props.itemsInCart} 
                   changeQty={this.props.changeQty}/></div>}
                 </div>
-    }
-}
+
+                }
+            }
+            </Query>
+            )
+}}
 
 export default Actions;

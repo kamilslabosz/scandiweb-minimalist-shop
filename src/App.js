@@ -15,9 +15,9 @@ class App extends PureComponent {
     super(props);
     this.state = JSON.parse(window.localStorage.getItem('state')) || {
       cart: [],
-      currCategory: 'all',
-      currencyIdx: 0,
-      currencySymbol: '$',
+      currCategory: null,
+      currencyIdx: null,
+      currencySymbol: null,
       itemsInCart: 0,
       renderOverlay: false,
     }

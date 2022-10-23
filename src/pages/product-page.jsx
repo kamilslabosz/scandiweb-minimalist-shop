@@ -1,36 +1,9 @@
-import { gql } from '@apollo/client';
 import { Query } from '@apollo/client/react/components';
 import { PureComponent } from 'react';
 import { withRouter } from '../utils/hoc'
 import ProductInfo from '../components/product-page/product-info';
 import { outOfStockInner } from '../utils/innerHtml';
-
-const GET_PRODUCT = gql`
-  query GetProduct($id: String!) {
-    product(id: $id){
-      id
-      name
-      inStock
-      gallery
-      category
-      description
-      attributes{
-        name
-        id
-        type
-        items{
-          displayValue
-          value
-          id
-        }
-      }
-      brand
-      prices{
-        amount
-      }
-    }
-  }
-`;
+import { GET_ITEM } from '../utils/queries';
 
 class ProductPage extends PureComponent {
   constructor(props) {
@@ -80,7 +53,7 @@ class ProductPage extends PureComponent {
 
   return (
     <Query
-    query={GET_PRODUCT}
+    query={GET_ITEM}
     variables={{id: this.props.params.id}}>
       {({ data }) =>{
         if (data === undefined) return null;
