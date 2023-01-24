@@ -24,7 +24,7 @@ class ProductCard extends PureComponent {
   }
 
   render() {
-    const { product, currencySymbol, currencyIdx } = this.props;
+    const { product, currencySymbol } = this.props;
     const { id, title, images, stock, price, brand } = this.props.product;
     const { renderAnimation } = this.state;
 

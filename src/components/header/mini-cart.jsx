@@ -41,7 +41,7 @@ class MiniCart extends PureComponent {
 
     render(){
 
-      const { cart, itemsInCart, currencySymbol, currencyIdx, changeQty } = this.props
+      const { cart, itemsInCart, currencySymbol, changeQty } = this.props
       const { total } = this.state
 
     return <div>
