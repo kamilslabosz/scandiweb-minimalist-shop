@@ -15,11 +15,11 @@ class CartGallery extends PureComponent {
       handleChange(direction){
         const newImg = this.state.currImg + (1 * direction)
         switch(newImg){
-          case this.props.gallery.length:
+          case this.props.images.length:
             this.setState({currImg: 0})
             break;
           case -1:
-            this.setState({currImg: (this.props.gallery.length-1)})
+            this.setState({currImg: (this.props.images.length-1)})
             break;
           default:
             this.setState({currImg: newImg})
@@ -34,14 +34,14 @@ class CartGallery extends PureComponent {
 
     render() {
 
-      const {gallery, product} = this.props
+      const {images, product} = this.props
       const currImg = this.state.currImg
 
       return <div>
-              <img className='cart-img' src={gallery[currImg]} alt={product.name}/>
+              <img className='cart-img' src={images[currImg]} alt={product.title}/>
               
-              {gallery.length > 1 && <img src={arrowLeft} alt={previousImage} className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
-              {gallery.length > 1 && <img src={arrowRight} alt={nextImage} className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}
+              {images.length > 1 && <img src={arrowLeft} alt={previousImage} className='img-button arrow-left' onClick={() => this.handleChange(-1)}/>}
+              {images.length > 1 && <img src={arrowRight} alt={nextImage} className='img-button arrow-right' onClick={() => this.handleChange(1)}/>}
             </div>
     
   

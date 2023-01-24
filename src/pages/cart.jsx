@@ -21,7 +21,7 @@ class CartPage extends PureComponent {
 
       updateSummary() { 
         const newTotal = this.props.cart.map((item) => (
-            item.quantity * item.prices[this.props.currencyIdx].amount
+            item.quantity * item.price
         )).reduce((a, b) => a + b, 0)
         const newQty = this.props.cart.map((item) => (
             item.quantity
@@ -72,7 +72,7 @@ class CartPage extends PureComponent {
                 <h1 className='cart-qty'>{product.quantity}</h1>
                 <img src={minus} alt={qtyDown} className='qty-button' onClick={() => changeQty(product, -1)}/>
             </div>
-            <CartGallery gallery={product.gallery} product={product}/>
+            <CartGallery images={product.images} product={product}/>
         </div>
         </div>
     ))}

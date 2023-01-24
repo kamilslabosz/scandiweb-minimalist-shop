@@ -1,45 +1,58 @@
-import { Query } from '@apollo/client/react/components';
-import { PureComponent } from 'react';
-import { withRouter } from '../utils/hoc';
-import ProductCard from '../components/main_page/product-card';
-import { GET_PRODUCTS } from '../utils/queries'
+import { PureComponent } from "react";
+import { withRouter } from "../utils/hoc";
+import ProductCard from "../components/main_page/product-card";
 
 class CategoryPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: [],
+      loading: true,
+      category: ""
+    };
+  }
 
   componentDidMount() {
-    this.props.changeCategory(this.props.params.name)
+    this.setState({category: this.props.currCategory})
+    fetch(`https://dummyjson.com/products/category/${this.props.params.name}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ products: data.products });
+        this.setState({ loading: false });
+      });
   }
 
   render() {
+    const {
+      renderOverlay,
+      params,
+      currencyIdx,
+      currencySymbol,
+      quickAddToCart,
+    } = this.props;
+    const { products, loading } = this.state;
 
-    const { renderOverlay, params, currencyIdx, currencySymbol, quickAddToCart } = this.props
+    return (
+      <div className="cat-main space-at-end">
+        {renderOverlay && <div className="dim-overlay" />}
+        <h1 className="cat-name">{params.name.replace("-"," ")}</h1>
 
-    return <div className='cat-main space-at-end'>
-    {renderOverlay && <div className='dim-overlay'/>}
-    <h1 className='cat-name'>{params.name}</h1>
-    <Query
-    query={GET_PRODUCTS}
-    variables={{input: {title: this.props.params.name}}}
-    fetchPolicy='network-only'>
-      {({ data }) => {
-        if (data === undefined) return null;
-        
-        return data.category.products.map((product) => (
-          <ProductCard 
-          currencyIdx={currencyIdx} 
-          currencySymbol={currencySymbol} 
-          product={product} 
-          key={product.id} 
-          quickAddToCart={quickAddToCart}
-          />
-        ))
-        }
-      }
-    </Query>
-</div>
-  
-
-  };
-};
+        {loading ? (
+          <h1>loading</h1>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              currencyIdx={currencyIdx}
+              currencySymbol={currencySymbol}
+              product={product}
+              key={product.id}
+              quickAddToCart={quickAddToCart}
+            />
+          ))
+        )}
+      </div>
+    );
+  }
+}
 
 export default withRouter(CategoryPage);

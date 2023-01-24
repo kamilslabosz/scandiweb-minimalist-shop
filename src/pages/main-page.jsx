@@ -1,38 +1,51 @@
-import React, { PureComponent } from 'react';
-import { Query } from '@apollo/client/react/components'
-import ProductCard from '../components/main_page/product-card';
-import { mainPageHeader } from '../utils/innerHtml';
-import { GET_PRODUCTS_MAIN } from '../utils/queries'
+import React, { PureComponent } from "react";
+import ProductCard from "../components/main_page/product-card";
+import { mainPageHeader } from "../utils/innerHtml";
 
-class MainPage extends PureComponent{
-  
-render(){
+class MainPage extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      loading: true,
+    };
+  }
 
-  const { renderOverlay, currencyIdx, currencySymbol,quickAddToCart } = this.props
+  componentDidMount() {
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ products: data.products });
+        this.setState({ loading: false });
+      });
+  }
 
-    return <div className='cat-main space-at-end'>
-          {renderOverlay && <div className='dim-overlay'/>}
-        <h1 className='cat-name'>{mainPageHeader}</h1>
-        <Query
-        query={GET_PRODUCTS_MAIN}
-        fetchPolicy='network-only'>
-          {({ data }) => {
-            if (data === undefined) return null;
+  render() {
+    const { renderOverlay, currencyIdx, currencySymbol, quickAddToCart } =
+      this.props;
+    const { products, loading } = this.state;
 
-            return data.category.products.map((product) => (
-              <ProductCard 
-              currencyIdx={currencyIdx} 
-              currencySymbol={currencySymbol} 
-              product={product} 
-              key={product.id} 
+    return (
+      <div className="cat-main space-at-end">
+        {renderOverlay && <div className="dim-overlay" />}
+        <h1 className="cat-name">{mainPageHeader}</h1>
+
+        {loading ? (
+          <h1>loading</h1>
+        ) : (
+          products.map((product) => (
+            <ProductCard
+              currencyIdx={currencyIdx}
+              currencySymbol={currencySymbol}
+              product={product}
+              key={product.id}
               quickAddToCart={quickAddToCart}
-              />
-            ))
-          }}
-        </Query>
-    </div>
-    
-    }
+            />
+          ))
+        )}
+      </div>
+    );
+  }
 }
 
 export default MainPage;

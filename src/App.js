@@ -17,7 +17,7 @@ class App extends PureComponent {
       cart: [],
       currCategory: null,
       currencyIdx: null,
-      currencySymbol: null,
+      currencySymbol: '$',
       itemsInCart: 0,
       renderOverlay: false,
     }
@@ -64,18 +64,11 @@ class App extends PureComponent {
     const newItem = {...product, 
       cartId: product.id
     }
-    newItem.attributes.forEach(attr => {
-      newItem.cartId = newItem.cartId+attr.name+"0"
-      newItem[attr.name] = 0
-    });
     this.checkAndAdd(newItem)
   }
 
   addToCart(product) {
     product.cartId = product.id
-    product.attributes.forEach(attr => {
-      product.cartId = product.cartId+attr.name+product[attr.name]
-    })
     this.checkAndAdd(product)
   }
 
@@ -147,6 +140,7 @@ class App extends PureComponent {
             addToCart={this.addToCart} />} />
         <Route path={categoryBaseRoute+':name'} 
           element={<CategoryPage
+            currCategory={this.state.currCategory}
             renderOverlay={this.state.renderOverlay}
             currencySymbol={this.state.currencySymbol} 
             currencyIdx={this.state.currencyIdx} 

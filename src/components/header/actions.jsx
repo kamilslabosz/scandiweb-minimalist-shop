@@ -1,11 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Query } from '@apollo/client/react/components';
 import cartImg from '../../images/svg/cart.svg'
-import vector from '../../images/svg/vector.svg'
-import vectorUp from '../../images/svg/vectorUp.svg'
 import MiniCart from './mini-cart';
-import { cartAlt, currBoxAlt } from '../../utils/alts';
-import { GET_CURRENCIES } from '../../utils/queries';
+import { cartAlt } from '../../utils/alts';
 
 class Actions extends PureComponent {
     constructor(props) {
@@ -14,7 +10,6 @@ class Actions extends PureComponent {
           renderCurrBox: false,
           renderMini: false,
         }
-        this.currBox = React.createRef();
         this.currButtonRef = React.createRef();
         this.miniCartBox = React.createRef();
         this.cartButton = React.createRef();
@@ -71,52 +66,10 @@ class Actions extends PureComponent {
 
     render(){
 
-      const { itemsInCart, currencySymbol, currencyIdx } = this.props
-      const { renderMini, renderCurrBox } = this.state
+      const { itemsInCart } = this.props
+      const { renderMini } = this.state
 
-    return (<Query
-    query={GET_CURRENCIES}>
-    {({ data }) => { 
-
-      if (data === undefined) return null;
-
-      return <div className='actions'>
-
-        <div className='flex' onClick={this.renderChange} ref={this.currButtonRef}>
-          <p className='action-item'>{currencySymbol}</p>
-          <img
-          src={renderCurrBox
-              ? vectorUp
-              : vector}
-          alt={currBoxAlt}
-          className='currency-vector'/>
-        </div>
-        {renderCurrBox &&
-        <div className='currency-box' onChange={(e) => this.handleChange(e)} ref={this.currBox}>
-            
-                {data.currencies.map((currency, index) => (
-                <div 
-                key={currency.label}
-                className={currencyIdx === String(index)
-                ? 'currency-button currency-checked'
-                : 'currency-button'}>
-                    <input 
-                    type='radio'
-                    name={currency.symbol}
-                    value={index}
-                    id={currency.label}
-                   defaultChecked={currencyIdx === String(index)}
-                    ></input>
-                    <label
-                    className='currency-label'
-                    htmlFor={currency.label}
-                    >{currency.symbol} {currency.label}</label>
-                </div>
-                ))
-                }
-
-            </div>}
-            
+    return <div className='actions'>
             <div ref={this.cartButton} className='flex'><img src={cartImg} id='cart' alt={cartAlt} className='action-item' onClick={this.miniRenderChange}/>
             {itemsInCart !== 0 && <div className='cart-items' onClick={this.miniRenderChange}>
               <p className='cart-num'>{itemsInCart}</p>
@@ -134,11 +87,6 @@ class Actions extends PureComponent {
                   itemsInCart={this.props.itemsInCart} 
                   changeQty={this.props.changeQty}/></div>}
                 </div>
-
-                }
-            }
-            </Query>
-            )
-}}
+    }};
 
 export default Actions;

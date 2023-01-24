@@ -18,7 +18,7 @@ class MiniCart extends PureComponent {
 
       updateSummary() { 
         const newTotal = this.props.cart.map((item) => (
-            item.quantity * item.prices[this.props.currencyIdx].amount
+            item.quantity * item.price
         )).reduce((a, b) => a + b, 0)
         this.setState({
             total: (Math.round(newTotal * 100) / 100).toFixed(2)
@@ -54,51 +54,8 @@ class MiniCart extends PureComponent {
       <div className='mini-cart-product row' key={index}>
         <div className='column'>
         <h1 className='mini-cart-name'>{product.brand}</h1>
-        <h1 className='mini-cart-name'>{product.name}</h1>
-        <h1 className='mini-cart-price'>{currencySymbol}{product.prices[currencyIdx].amount}</h1>
-        {product.attributes.map((attr) =>
-          <div key={attr.name+product}>
-            <h1 className='mini-attr-name'>{attr.name}:</h1>
-            <form className='row'>
-            { attr.type === "swatch"
-            ? attr.items.map((item, idx) => (
-            <div key={index+attr.name + item.value}>
-            <input type="radio" 
-                name={attr.name} 
-                value={idx} 
-                id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] === String(idx) || product[attr.name] === idx}
-                disabled
-            ></input>
-            <label 
-            className={item.value === '#FFFFFF' 
-                ? 'mini-attr-white'
-                : 'mini-attr-color'} 
-                style={{background: item.value}} 
-                htmlFor={index+attr.name + item.value}></label>
-                </div>
-            )) 
-            : attr.items.map((item, idx) => (
-            <div key={index+attr.name + item.value}>
-            <input type="radio" 
-                name={attr.name} 
-                value={idx} 
-                id={index+attr.name + item.value}
-                defaultChecked={product[attr.name] === String(idx) || product[attr.name] === idx}
-                disabled
-            ></input>
-            <label 
-            className={attr.name === 'Capacity'
-              ? 'attr-value mini-cart-attr mini-attr-wider'
-              : 'attr-value mini-cart-attr'} 
-            htmlFor={index+attr.name + item.value}>{item.value}</label>
-            </div>))
-            }
-            </form>
-            
-          </div>
-    
-        )}
+        <h1 className='mini-cart-name'>{product.title}</h1>
+        <h1 className='mini-cart-price'>{currencySymbol}{product.price}</h1>
         </div>
         <div className='flex align-center'>
                 <div className='qty-box mini-cart-qty'>
@@ -106,7 +63,7 @@ class MiniCart extends PureComponent {
                     <h1 className='cart-qty'>{product.quantity}</h1>
                     <img src={minus} alt={qtyDown} className='mini-qty-button' onClick={() => changeQty(product, -1)}/>
                 </div>
-                <img src={product.gallery[0]} alt={product.name} className='mini-cart-img' />
+                <img src={product.images[0]} alt={product.title} className='mini-cart-img' />
             </div>
       </div>))}
       </div>
